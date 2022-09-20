@@ -1,0 +1,44 @@
+<table class="table table-dark" >
+
+    <!-- ProductID INT NOT NULL,
+    UPC CHAR(12) NOT NULL,
+    ProdName VARCHAR(50) NOT NULL,
+    Brand VARCHAR(50) NOT NULL,
+    ProdDescription VARCHAR(100) NOT NULL,
+    Category VARCHAR(50) NOT NULL,
+    PricePerUnit FLOAT NOT NULL,
+    ImageURL VARCHAR(2048),
+    AvailableStock INT NOT NULL,
+    ReservedStock INT NOT NULL,
+    ShippedStock INT NOT NULL,
+    PRIMARY KEY (ProductID) -->
+    <thead>
+      <tr>
+        <th scope="col">UPC</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Category</th>
+        <th scope="col">Price Per Unit</th>
+        <th scope="col">Available Stock</th> 
+        <th scope="col">Reserved Stock</th>   
+        <th scope="col">Shipped Stock</th>   
+        <th scope="col">View/Edit/Delete</th>            
+    </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of products">
+          <td><a>{{product.upc}}</a></td>
+          <td>{{product.productName}}</td>
+          <td>{{product.category}}</td>
+          <td>{{product.pricePerUnit}}</td>
+          <td>{{product.availableStock}}</td>
+          <td>{{product.reservedStock}}</td>
+          <td>{{product.shippedStock}}</td>
+          <!-- [routerLink]="['/listing/',product.itemId]" -->
+          <td> <a>View/Edit/Delete</a></td>
+          <!-- (click)="deleteProduct(product.itemId)" -->
+          <!-- <td><button class="btn btn-danger">Delete</button></td> -->
+        </tr>
+      
+      
+    </tbody>
+  </table>
