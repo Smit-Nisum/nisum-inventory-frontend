@@ -1,0 +1,81 @@
+<hr/>
+<button type="button" class="btn btn-primary" (click)="openPopup()">CREATE</button>
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Product</h4>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
+
+                    <div>
+                        <label for="upc">UPC &nbsp;</label>
+                        <input id="upc" formControlName="upc">
+                    </div>
+                    
+                    <div>
+                        <label for="prodname">ProdName &nbsp;</label>
+                        <input for="prodname" formControlName="prodName">
+                    </div>
+
+                    <div>
+                        <label for="brand">Brand &nbsp;</label>
+                        <input id="brand" formControlName="brand">
+                    </div>
+                    
+                   
+                    <div>
+                        <label for="proddesc ">ProdDescription &nbsp;</label>
+                        <input id="proddesc " formControlName="prodDesc">
+                    </div>
+    
+                    <div>
+                        <label for="category">Category &nbsp;</label>
+                        <input id="category"  formControlName="category">
+                    </div>
+
+                    <div>
+                        <label for="priceperunit">PricePerUnit &nbsp;</label>
+                        <input id="priceperunit" formControlName="pricePerUnit">
+                    </div>
+
+                    <div>
+                        <label for="imageurl">ImageURL &nbsp;</label>
+                        <input id="imageurl"  formControlName="imageURL"> 
+                    </div>
+
+                    <div>
+                        <label for="availablestock">AvailableStock &nbsp;</label>
+                        <input id="availablestock" formControlName="availableStock">
+                    </div>
+                    
+                    <div>
+                        <label for="reservedstock">ReservedStock &nbsp;</label>
+                        <input id="reservedstock"  formControlName="reservedStock">
+                    </div>
+
+                    <div>
+                        <label for="shippedstock">ShippedStock &nbsp;</label>
+                        <input id="shippedstock" formControlName="shippedStock" >
+                    </div>
+                    
+   
+
+                    <button class="btn btn-primary" type="submit">Submit</button>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" (click)="closePopup()">
+                    Submit
+                </button>
+
+                <button type="button" class="btn btn-primary"
+                        (click)="closePopup()">
+                Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
