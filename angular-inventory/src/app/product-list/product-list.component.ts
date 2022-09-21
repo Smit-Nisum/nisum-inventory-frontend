@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/shared/services/product.service';
-
+import { SearchService } from 'src/shared/services/search.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit {
-  products: any[] = [];
-
+  products = [];
+  dataSource = new MatTableDataSource(this.products);
   // <th scope="col">UPC</th>
   // <th scope="col" >Product Name</th>
   // <th scope="col">Category</th>
@@ -37,13 +39,27 @@ export class ProductListComponent implements OnInit {
   limit: number = 15;
   end: number = this.limit + this.start;
   selectedRowIndex: any = null;
+  // this.searchService.getSearchText();
+  filterText = '';
 
-  constructor(private ps: ProductService) {}
+  subscription: Subscription;
+
+  constructor(
+    private ps: ProductService,
+    private searchService: SearchService
+  ) {}
 
   ngOnInit(): void {
+    console.log('hello from init');
+    this.subscription = this.searchService.filterText$.subscribe((text) => {
+      this.filterText = text;
+      this.filterText = this.filterText.trim(); // Remove whitespace
+      this.filterText = this.filterText.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+      this.dataSource.filter = this.filterText;
+    });
     this.ps.getProducts().subscribe((products) => {
-      console.table(products);
-      this.products = products;
+      // this.products = products;
+      this.dataSource = new MatTableDataSource(products);
     });
   }
   onClickSort() {}
@@ -68,7 +84,7 @@ export class ProductListComponent implements OnInit {
   }
 
   /*
-    Filter prodcuts to get products in range
+    Filter products to get products in range
   */
   getTableData(start: any, end: any) {
     return this.products.filter(
@@ -91,4 +107,6 @@ export class ProductListComponent implements OnInit {
   selectedRow(row: any) {
     console.log('selectedRow', row);
   }
+
+  applyFilter(filterValue: string) {}
 }

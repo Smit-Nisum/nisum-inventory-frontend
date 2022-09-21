@@ -8,9 +8,16 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { SearchBarComponent } from './search-bar/search-bar.component';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [AppComponent, ProductListComponent, SearchBarComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, MatTableModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    MatTableModule,
+    FormsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
