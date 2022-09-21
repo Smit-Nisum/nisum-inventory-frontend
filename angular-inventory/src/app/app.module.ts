@@ -3,18 +3,15 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SearchBarComponent } from './search-bar/search-bar.component';
 
+import { ProductListComponent } from './product-list/product-list.component';
+import { HttpClientModule } from '@angular/common/http';
+import { MatTableModule } from '@angular/material/table';
+import { SearchBarComponent } from './search-bar/search-bar.component';
 @NgModule({
-  declarations: [
-    AppComponent,
-    SearchBarComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  declarations: [AppComponent, ProductListComponent, SearchBarComponent],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, MatTableModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
