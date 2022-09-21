@@ -1,0 +1,17 @@
+.btn-nisum {
+    background: #00cfff;
+    background: -moz-linear-gradient(to bottom, #6e12ff, #0019ff, #00cfff);
+    color: #fff;
+    border-radius: 0%;
+    border: none;
+    font-family: 'Corbel', Verdana, "Bitstream Vera Sans", sans-serif;
+    
+}
+
+.btn-nisum:hover {
+    color: #fff;
+}
+
+.search {
+    font-family: 'Corbel', Verdana, "Bitstream Vera Sans", sans-serif;
+}
