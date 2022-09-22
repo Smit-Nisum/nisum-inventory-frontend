@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ProductService } from 'src/shared/services/product.service';
 import { SearchService } from 'src/shared/services/search.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -12,21 +18,14 @@ import { MatSort, Sort } from '@angular/material/sort';
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
 })
-export class ProductListComponent implements OnInit, AfterViewInit {
+export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
   products = [];
+
+  // TableVirtualScrollDataSource will hold the data for the material table
   dataSource = new TableVirtualScrollDataSource(this.products);
 
+  // Sort object to sort columns of the table by
   @ViewChild('productSort') productSort = new MatSort();
-
-  // columns = [
-  //   'UPC',
-  //   'Product Name',
-  //   'Category',
-  //   'Price Per Unit',
-  //   'Available Stock',
-  //   'Reserved Stock',
-  //   'Shipped Stock',
-  // ];
 
   columns = [
     'upc',
@@ -37,8 +36,14 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     'reservedStock',
     'shippedStock',
   ];
+
+  //previous columns are dynamic, append static columns at the end
   displayedColumns = this.columns.concat('View/Edit', 'Delete');
 
+  /* 
+    Displayed column names will be different from property value of the actual
+     product object
+  */
   displayProductTable = {
     upc: 'UPC',
     prodName: 'Product Name',
@@ -49,8 +54,10 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     shippedStock: 'Shipped Stock',
   };
 
+  //used in material table to find the index/row of a table item
   selectedRowIndex: any = null;
 
+  //search bar text will be displayed/updated here
   filterText = '';
 
   subscription: Subscription;
@@ -59,21 +66,32 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     private ps: ProductService,
     private searchService: SearchService
   ) {}
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.productSort;
-  }
 
+  //grab data from the source
   ngOnInit(): void {
     this.subscription = this.searchService.filterText$.subscribe((text) => {
       this.applyFilter(text);
     });
+
     this.ps.getProducts().subscribe((products) => {
-      this.products = products;
-
-      this.dataSource = new TableVirtualScrollDataSource(this.products);
-
-      this.dataSource.sort = this.productSort;
+      this.initProducts(products);
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.productSort;
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  initProducts(products: any) {
+    this.products = products;
+
+    this.dataSource = new TableVirtualScrollDataSource(this.products);
+
+    this.dataSource.sort = this.productSort;
   }
 
   getDisplayColumns() {
