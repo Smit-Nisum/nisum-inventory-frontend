@@ -11,7 +11,7 @@ export class ProductService {
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/get/036000291452`);
+    return this.http.get<any>(`${this.baseUrl}/fetchAllItems`);
   }
 
 
@@ -22,4 +22,6 @@ export class ProductService {
     )
     ;
   }
+
+
 }
