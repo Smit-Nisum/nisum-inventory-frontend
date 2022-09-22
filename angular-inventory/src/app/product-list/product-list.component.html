@@ -1,0 +1,51 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">UPC</th>
+      <th scope="col">Product Name</th>
+      <th scope="col">Category</th>
+      <th scope="col">Price Per Unit</th>
+      <th scope="col">Available Stock</th>
+      <th scope="col">Reserved Stock</th>
+      <th scope="col">Shipped Stock</th>
+      <th scope="col">View/Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products">
+      <td>
+        <a>{{ product.upc }}</a>
+      </td>
+      <td>{{ product.prodName }}</td>
+      <td>{{ product.category }}</td>
+      <td>{{ product.pricePerUnit }}</td>
+      <td>{{ product.availableStock }}</td>
+      <td>{{ product.reservedStock }}</td>
+      <td>{{ product.shippedStock }}</td>
+
+      <!-- [routerLink]="['/listing/',product.itemId]" -->
+      <td><a>View/Edit (insert icon?)</a></td>
+      <td>
+        <button class="btn btn-danger" mat-raised-button (click)="popup = true">
+          Delete
+        </button>
+      </td>
+
+      <!--Pop up window-->
+      <div class="overlay" *ngIf="popup">
+        <div class="popup">
+          <h1>Are you sure to delete {{ product.prodName }}</h1>
+          <a class="close" (click)="popup = false">&times;</a>
+          <div class="content">
+            <button (click)="deleteProduct(product.upc)">Yes</button>
+            <button (click)="popup = false">No</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- (click)="deleteProduct(product.itemId)" -->
+      <!-- <td><button class="btn btn-danger">Delete</button></td> -->
+    </tr>
+  </tbody>
+</table>
