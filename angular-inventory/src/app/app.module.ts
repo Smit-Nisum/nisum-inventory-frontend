@@ -9,6 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { FormsModule } from '@angular/forms';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { TableVirtualScrollModule } from 'ng-table-virtual-scroll';
 @NgModule({
   declarations: [AppComponent, ProductListComponent, SearchBarComponent],
   imports: [
@@ -17,6 +19,8 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     MatTableModule,
     FormsModule,
+    ScrollingModule,
+    TableVirtualScrollModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

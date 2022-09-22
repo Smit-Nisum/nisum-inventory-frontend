@@ -31,72 +31,48 @@
     </tbody>
   </table> -->
  
-  <div class="container">
-    <mat-table #table [dataSource]="dataSource" (scroll)="onTableScroll($event)">
-  
-      <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
-  
-      <!-- UPC Column -->
-      <ng-container matColumnDef="upc">
-        <mat-header-cell *matHeaderCellDef>upc</mat-header-cell>
-        <mat-cell *matCellDef="let product"> {{product.upc}} </mat-cell>
-      </ng-container>
-  
-      <!-- Product Name Column -->
-      <ng-container matColumnDef="prodName">
-        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-        <mat-cell *matCellDef="let product"> {{product.prodName}} </mat-cell>
-      </ng-container>
-  
-      <!-- Price Per Unit Column -->
-      <ng-container matColumnDef="pricePerUnit">
-        <mat-header-cell *matHeaderCellDef> Price Per Unit </mat-header-cell>
-        <mat-cell *matCellDef="let product"> {{product.pricePerUnit}} </mat-cell>
+  <!-- <div class="container"> -->
+    <cdk-virtual-scroll-viewport tvsItemSize="16" class="wrapper" >
+      <mat-table [dataSource]="dataSource" >
+    
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+    
+          <ng-container *ngFor="let item of displayProductTable | keyvalue"
+          [matColumnDef]="item.value">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{ item.value | titlecase }}
+            </mat-header-cell>
+              <mat-cell  *matCellDef="let product">{{ product[item.key] }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="View/Edit">
+            <mat-header-cell *matHeaderCellDef> View/Edit </mat-header-cell>
+            <mat-cell *matCellDef="let row" >
+                <button mat-button >Edit</button>
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Delete">
+          <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+          <mat-cell *matCellDef="let row" >
+              <button mat-button >Delete</button>
+          </mat-cell>
       </ng-container>
 
-      <!-- Category Column -->
-      <ng-container matColumnDef="category">
-        <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
-        <mat-cell *matCellDef="let product"> {{product.category}} </mat-cell>
-      </ng-container>
-
-      <!-- Available Stock Column -->
-      <ng-container matColumnDef="availableStock">
-        <mat-header-cell *matHeaderCellDef> Available Stock </mat-header-cell>
-        <mat-cell *matCellDef="let product"> {{product.availableStock}} </mat-cell>
-      </ng-container>
-
-      <!-- Reserve Stock Column -->
-      <ng-container matColumnDef="reservedStock">
-        <mat-header-cell *matHeaderCellDef> Reserve Stock </mat-header-cell>
-        <mat-cell *matCellDef="let product"> {{product.reservedStock}} </mat-cell>
-      </ng-container>
-
-      <!-- Shipped Stock Column -->
-      <ng-container matColumnDef="shippedStock">
-        <mat-header-cell *matHeaderCellDef> Shipped Stock </mat-header-cell>
-        <mat-cell *matCellDef="let product"> {{product.shippedStock}} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="View/Edit">
-        <mat-header-cell *matHeaderCellDef> View/Edit </mat-header-cell>
-        <mat-cell *matCellDef="let row" >
-             <button mat-button >Edit</button>
-        </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="Delete">
-        <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
-        <mat-cell *matCellDef="let row" >
-             <button mat-button >Delete</button>
-        </mat-cell>
-      </ng-container>
-  
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns; let i= index" (click)="selectedRow(row)"
-      [ngClass]="{'highlightTableColor': selectedRowIndex == i}"></mat-row>
-    </mat-table>
-  </div>
-  
+  <!-- 
+          <ng-container>
+            <mat-header-cell>
+            Delete
+          </mat-header-cell>
+          <mat-cell> <button mat-button >Delete</button></mat-cell>
+        </ng-container> -->
+    
+    
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns let i= index" (click)="selectedRow(row)"
+        [ngClass]="{'highlightTableColor': selectedRowIndex == i}"></mat-row>
+      </mat-table>
+    </cdk-virtual-scroll-viewport>
+  <!-- </div>
+   -->
   

@@ -3,6 +3,8 @@ import { ProductService } from 'src/shared/services/product.service';
 import { SearchService } from 'src/shared/services/search.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
+import { TableVirtualScrollDataSource } from 'ng-table-virtual-scroll';
+
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
@@ -10,36 +12,31 @@ import { Subscription } from 'rxjs';
 })
 export class ProductListComponent implements OnInit {
   products = [];
-  dataSource = new MatTableDataSource(this.products);
-  // <th scope="col">UPC</th>
-  // <th scope="col" >Product Name</th>
-  // <th scope="col">Category</th>
-  // <th scope="col">Price Per Unit</th>
-  // <th scope="col">Available Stock</th>
-  // <th scope="col">Reserved Stock</th>
-  // <th scope="col">Shipped Stock</th>
-  // <th scope="col">View/Edit</th>
-  // <th scope="col">Delete</th>
-  displayedColumns = [
-    'upc',
-    'prodName',
-    'category',
-    'pricePerUnit',
-    'availableStock',
-    'reservedStock',
-    'shippedStock',
-    'View/Edit',
-    'Delete',
+  dataSource = new TableVirtualScrollDataSource(this.products);
+
+  columns = [
+    'UPC',
+    'Product Name',
+    'Category',
+    'Price Per Unit',
+    'Available Stock',
+    'Reserved Stock',
+    'Shipped Stock',
   ];
-  /*
-    Start and end index representing how many table cells are present 
-    in the table  
-  */
-  start: number = 0;
-  limit: number = 15;
-  end: number = this.limit + this.start;
+  displayedColumns = this.columns.concat('View/Edit', 'Delete');
+
+  displayProductTable = {
+    upc: 'UPC',
+    prodName: 'Product Name',
+    category: 'Category',
+    pricePerUnit: 'Price Per Unit',
+    availableStock: 'Available Stock',
+    reservedStock: 'Reserved Stock',
+    shippedStock: 'Shipped Stock',
+  };
+
   selectedRowIndex: any = null;
-  // this.searchService.getSearchText();
+
   filterText = '';
 
   subscription: Subscription;
@@ -50,55 +47,23 @@ export class ProductListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('hello from init');
     this.subscription = this.searchService.filterText$.subscribe((text) => {
-      this.filterText = text;
-      this.filterText = this.filterText.trim(); // Remove whitespace
-      this.filterText = this.filterText.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-      this.dataSource.filter = this.filterText;
+      this.applyFilter(text);
     });
     this.ps.getProducts().subscribe((products) => {
-      // this.products = products;
-      this.dataSource = new MatTableDataSource(products);
+      this.products = products;
+      console.log(this.products);
+      this.dataSource = new TableVirtualScrollDataSource(this.products);
     });
   }
+
+  getDisplayColumns() {
+    const result = Object.values(this.displayProductTable);
+    console.log(result, 'result!');
+    return Object.values(result);
+  }
+
   onClickSort() {}
-
-  /*
-    Table scroll event handler
-  */
-  onTableScroll(e: any) {
-    console.log(e);
-    const tableViewHeight = e.target.offsetHeight; // viewport
-    const tableScrollHeight = e.target.scrollHeight; // length of all table
-    const scrollLocation = e.target.scrollTop; // how far user scrolled
-
-    // If the user has scrolled within 200px of the bottom, add more data
-    const buffer = 200;
-    const limit = tableScrollHeight - tableViewHeight - buffer;
-    if (scrollLocation > limit) {
-      let data = this.getTableData(this.start, this.end);
-      this.products = this.products.concat(data);
-      this.updateIndex();
-    }
-  }
-
-  /*
-    Filter products to get products in range
-  */
-  getTableData(start: any, end: any) {
-    return this.products.filter(
-      (value: any, index: any) => index >= start && index < end
-    );
-  }
-
-  /*
-    updates the index position of where you are in the table currently
-  */
-  updateIndex() {
-    this.start = this.end;
-    this.end = this.limit + this.start;
-  }
 
   /*
     Will return the dom reference of the current row selected
@@ -108,5 +73,10 @@ export class ProductListComponent implements OnInit {
     console.log('selectedRow', row);
   }
 
-  applyFilter(filterValue: string) {}
+  applyFilter(text: string) {
+    this.filterText = text;
+    this.filterText = this.filterText.trim(); // Remove whitespace
+    this.filterText = this.filterText.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.filter = this.filterText;
+  }
 }
