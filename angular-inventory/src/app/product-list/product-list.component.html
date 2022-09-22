@@ -33,13 +33,13 @@
  
   <!-- <div class="container"> -->
     <cdk-virtual-scroll-viewport tvsItemSize="16" class="wrapper" >
-      <mat-table [dataSource]="dataSource" >
+      <mat-table [dataSource]="dataSource" matSort  #productSort="matSort">
     
         <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
     
           <ng-container *ngFor="let item of displayProductTable | keyvalue"
-          [matColumnDef]="item.value">
+          [matColumnDef]="item.key">
             <mat-header-cell *matHeaderCellDef mat-sort-header>
               {{ item.value | titlecase }}
             </mat-header-cell>

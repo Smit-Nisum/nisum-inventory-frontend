@@ -1,27 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from 'src/shared/services/product.service';
 import { SearchService } from 'src/shared/services/search.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { TableVirtualScrollDataSource } from 'ng-table-virtual-scroll';
 
+import { MatSort, Sort } from '@angular/material/sort';
+
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, AfterViewInit {
   products = [];
   dataSource = new TableVirtualScrollDataSource(this.products);
 
+  @ViewChild('productSort') productSort = new MatSort();
+
+  // columns = [
+  //   'UPC',
+  //   'Product Name',
+  //   'Category',
+  //   'Price Per Unit',
+  //   'Available Stock',
+  //   'Reserved Stock',
+  //   'Shipped Stock',
+  // ];
+
   columns = [
-    'UPC',
-    'Product Name',
-    'Category',
-    'Price Per Unit',
-    'Available Stock',
-    'Reserved Stock',
-    'Shipped Stock',
+    'upc',
+    'prodName',
+    'category',
+    'pricePerUnit',
+    'availableStock',
+    'reservedStock',
+    'shippedStock',
   ];
   displayedColumns = this.columns.concat('View/Edit', 'Delete');
 
@@ -45,6 +59,9 @@ export class ProductListComponent implements OnInit {
     private ps: ProductService,
     private searchService: SearchService
   ) {}
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.productSort;
+  }
 
   ngOnInit(): void {
     this.subscription = this.searchService.filterText$.subscribe((text) => {
@@ -52,8 +69,10 @@ export class ProductListComponent implements OnInit {
     });
     this.ps.getProducts().subscribe((products) => {
       this.products = products;
-      console.log(this.products);
+
       this.dataSource = new TableVirtualScrollDataSource(this.products);
+
+      this.dataSource.sort = this.productSort;
     });
   }
 
