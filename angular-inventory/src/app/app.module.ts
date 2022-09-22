@@ -7,15 +7,29 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 
+import { ProductListComponent } from './product-list/product-list.component';
+import { HttpClientModule } from '@angular/common/http';
+import { MatTableModule } from '@angular/material/table';
+import { SearchBarComponent } from './search-bar/search-bar.component';
+import { FormsModule } from '@angular/forms';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { TableVirtualScrollModule } from 'ng-table-virtual-scroll';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginPageComponent
+    LoginPageComponent, 
+    ProductListComponent, 
+    SearchBarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SocialLoginModule
+    SocialLoginModule,
+    HttpClientModule,
+    MatTableModule,
+    FormsModule,
+    ScrollingModule,
+    TableVirtualScrollModule,
   ],
   providers: [    {
     provide: 'SocialAuthServiceConfig',
@@ -34,4 +48,4 @@ import { LoginPageComponent } from './login-page/login-page.component';
 ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
