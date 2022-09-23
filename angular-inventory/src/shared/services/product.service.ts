@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,4 +13,15 @@ export class ProductService {
   getProducts(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/fetchAllItems`);
   }
+
+
+  createProduct(product: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/create`,product)
+    .pipe(
+      tap(data => console.log('createProduct: ' + JSON.stringify(data)))
+    )
+    ;
+  }
+
+
 }
