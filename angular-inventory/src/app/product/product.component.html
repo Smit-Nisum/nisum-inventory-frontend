@@ -1,0 +1,32 @@
+<div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>UPC</th>
+        <th>ProdName</th>
+        <th>Brand</th>
+        <th>ProdDescription</th>
+        <th>Category</th>
+        <th>PricePerUnit</th>
+        <th>ImageURL</th>
+        <th>AvailableStock</th>
+        <th>ReservedStock</th>
+        <th>ShippedStock</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ product.upc }}</td>
+        <td>{{ product.prodName }}</td>
+        <td>{{ product.brand }}</td>
+        <td>{{ product.prodDescription }}</td>
+        <td>{{ product.category }}</td>
+        <td>{{ product.pricePerUnit }}</td>
+        <td>{{ product.imageURL }}</td>
+        <td>{{ product.availableStock }}</td>
+        <td>{{ product.reservedStock }}</td>
+        <td>{{ product.shippedStock }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

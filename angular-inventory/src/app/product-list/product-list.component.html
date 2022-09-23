@@ -1,0 +1,50 @@
+<p>product-list works!</p>
+<div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>UPC</th>
+        <th>ProdName</th>
+        <th>Brand</th>
+        <th>ProdDescription</th>
+        <th>Category</th>
+        <th>PricePerUnit</th>
+        <th>ImageURL</th>
+        <th>AvailableStock</th>
+        <th>ReservedStock</th>
+        <th>ShippedStock</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>
+          <a
+            [routerLink]="['/product-detail/', product.upc]"
+            class="text-primary"
+            >{{ product.upc }}</a
+          >
+        </td>
+        <td>{{ product.prodName }}</td>
+        <td>{{ product.brand }}</td>
+        <td>{{ product.prodDescription }}</td>
+        <td>{{ product.category }}</td>
+        <td>{{ product.pricePerUnit }}</td>
+        <td>{{ product.imageURL }}</td>
+        <td>{{ product.availableStock }}</td>
+        <td>{{ product.reservedStock }}</td>
+        <td>{{ product.shippedStock }}</td>
+        <td>
+          <button><a [routerLink]="['/form/', product.upc]">Edit</a></button>
+        </td>
+        <td>
+          <button>Delete</button>
+        </td>
+
+        
+      </tr>
+    </tbody>
+  </table>
+</div>

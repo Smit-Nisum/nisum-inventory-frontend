@@ -1,0 +1,99 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-10">
+      <div class="col-12 col-md-12">
+        <form [formGroup]="productForm" (ngSubmit)="updated()">
+          <div class="form-group">
+            <label class="form-control-label" for="upc">UPC</label>
+            <input class="form-control" id="upc" formControlName="upc" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-control-label" for="prodName"
+              >Product Name</label
+            >
+            <input
+              class="form-control"
+              id="prodName"
+              formControlName="prodName"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="brand">Brand</label>
+            <input class="form-control" id="brand" formControlName="brand" />
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="prodDescription"
+              >prodDescription</label
+            >
+            <input
+              class="form-control"
+              id="prodDescription"
+              formControlName="prodDescription"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="category">Category</label>
+            <input
+              class="form-control"
+              id="category"
+              formControlName="category"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="pricePerUnit"
+              >pricePerUnit</label
+            >
+            <input
+              class="form-control"
+              id="pricePerUnit"
+              formControlName="pricePerUnit"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="imageURL">imageURL</label>
+            <input
+              class="form-control"
+              id="imageURL"
+              formControlName="imageURL"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="availableStock"
+              >availableStock</label
+            >
+            <input
+              class="form-control"
+              id="availableStock"
+              formControlName="availableStock"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="reservedStock"
+              >reservedStock</label
+            >
+            <input
+              class="form-control"
+              id="reservedStock"
+              formControlName="reservedStock"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="shippedStock"
+              >shippedStock</label
+            >
+            <input
+              class="form-control"
+              id="shippedStock"
+              formControlName="shippedStock"
+            />
+          </div>
+
+          <div class="col text-center">
+            <button class="btn btn-primary">{{ btnLabel }}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
