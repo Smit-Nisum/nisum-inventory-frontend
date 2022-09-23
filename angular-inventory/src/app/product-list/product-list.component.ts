@@ -19,7 +19,7 @@ import { MatSort, Sort } from '@angular/material/sort';
   styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
-  products = [];
+  products: { upc: string, prodName: string, category: String, pricePerUnit: number, availableStock: number, reservedStock: number, shippedStock: number, }[] = [];
 
   // TableVirtualScrollDataSource will hold the data for the material table
   dataSource = new TableVirtualScrollDataSource(this.products);
@@ -65,7 +65,7 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private ps: ProductService,
     private searchService: SearchService
-  ) {}
+  ) { }
 
   //grab data from the source
   ngOnInit(): void {
@@ -91,7 +91,7 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.dataSource = new TableVirtualScrollDataSource(this.products);
 
-    this.dataSource.sort = this.productSort;
+    // this.dataSource.sort = this.productSort;
   }
 
   getDisplayColumns() {
@@ -100,7 +100,31 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     return Object.values(result);
   }
 
-  onClickSort() {}
+  public sortData(sort: Sort) {
+    const sortedData = this.products.slice();
+
+    if (!sort.active || sort.direction === '') {
+      this.dataSource.data = sortedData;
+      return;
+    }
+
+    this.dataSource.data = sortedData.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'upc': return compare(a.upc, b.upc, isAsc);
+        case 'prodName': return compare(a.prodName.toLowerCase(), b.prodName.toLowerCase(), isAsc);
+        case 'category': return compare(a.category.toLowerCase(), b.category.toLowerCase(), isAsc);
+        case 'pricePerUnit': return compare(a.pricePerUnit, b.pricePerUnit, isAsc);
+        case 'availableStock': return compare(a.availableStock, b.availableStock, isAsc);
+        case 'reserveStock': return compare(a.reservedStock, b.reservedStock, isAsc);
+        case 'shippedStock': return compare(a.shippedStock, b.shippedStock, isAsc);
+        default: return 0;
+      }
+    })
+  }
+
+
+
 
   /*
     Will return the dom reference of the current row selected
@@ -116,4 +140,8 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filterText = this.filterText.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = this.filterText;
   }
+}
+
+function compare(a: number | string, b: number | string, isAsc: boolean) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
