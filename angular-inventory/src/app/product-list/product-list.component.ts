@@ -121,7 +121,7 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
         case 'category': return compare(a.category.toLowerCase(), b.category.toLowerCase(), isAsc);
         case 'pricePerUnit': return compare(a.pricePerUnit, b.pricePerUnit, isAsc);
         case 'availableStock': return compare(a.availableStock, b.availableStock, isAsc);
-        case 'reserveStock': return compare(a.reservedStock, b.reservedStock, isAsc);
+        case 'reservedStock': return compare(a.reservedStock, b.reservedStock, isAsc);
         case 'shippedStock': return compare(a.shippedStock, b.shippedStock, isAsc);
         default: return 0;
       }
