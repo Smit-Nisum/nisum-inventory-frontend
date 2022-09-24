@@ -13,13 +13,16 @@ import { TableVirtualScrollDataSource } from 'ng-table-virtual-scroll';
 
 import { MatSort, Sort } from '@angular/material/sort';
 
+
+interface Product { upc: string, prodName: string, category: String, pricePerUnit: number, availableStock: number, reservedStock: number, shippedStock: number }
+
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
-  products: { upc: string, prodName: string, category: String, pricePerUnit: number, availableStock: number, reservedStock: number, shippedStock: number, }[] = [];
+  products: Product[] = [];
 
   // TableVirtualScrollDataSource will hold the data for the material table
   dataSource = new TableVirtualScrollDataSource(this.products);
@@ -93,6 +96,8 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // this.dataSource.sort = this.productSort;
   }
+
+
 
   getDisplayColumns() {
     const result = Object.values(this.displayProductTable);
