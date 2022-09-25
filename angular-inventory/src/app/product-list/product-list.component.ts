@@ -13,6 +13,9 @@ import { TableVirtualScrollDataSource } from 'ng-table-virtual-scroll';
 
 import { MatSort, Sort } from '@angular/material/sort';
 
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
@@ -20,6 +23,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 })
 export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
   products = [];
+  upcValue: string = 'hello';
 
   // TableVirtualScrollDataSource will hold the data for the material table
   dataSource = new TableVirtualScrollDataSource(this.products);
@@ -61,10 +65,12 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
   filterText = '';
 
   subscription: Subscription;
+  dialogRef: any;
 
   constructor(
     private ps: ProductService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private matDialog: MatDialog
   ) {}
 
   //grab data from the source
@@ -115,5 +121,14 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filterText = this.filterText.trim(); // Remove whitespace
     this.filterText = this.filterText.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = this.filterText;
+  }
+
+  /*
+    Will show the pop up dialog before delete product
+  */
+  openDialog(row: any) {
+    this.matDialog.open(DeleteDialogComponent);
+    console.log(row.upc);
+    this.ps.setUpc(row.upc);
   }
 }
