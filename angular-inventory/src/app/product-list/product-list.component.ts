@@ -25,6 +25,11 @@ interface Product {
   shippedStock: number;
 }
 
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { EditProductBtnComponent } from '../edit-product-btn/edit-product-btn.component';
+import { ProductNotFoundComponent } from '../product-not-found/product-not-found.component';
+
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
@@ -32,6 +37,7 @@ interface Product {
 })
 export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
   products: Product[] = [];
+  upcValue: string = 'hello';
 
   // TableVirtualScrollDataSource will hold the data for the material table
   dataSource = new MatTableDataSource(this.products);
@@ -75,10 +81,12 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
   filterText = '';
 
   subscription: Subscription;
+  dialogRef: any;
 
   constructor(
     private ps: ProductService,
     private searchService: SearchService,
+    private matDialog: MatDialog,
     private readonly _authService: SocialAuthService,
     private router: Router
   ) {}
@@ -171,6 +179,56 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dataSource.filter = this.filterText;
   }
 
+  /*
+    Will show the pop up dialog before delete product
+  */
+  openDialog(row: any) {
+    this.ps.getProductById(row.upc).subscribe(
+      (product) => {
+        this.matDialog.open(DeleteDialogComponent, {
+          height: '200',
+          width: '250px',
+        });
+        this.ps.setUpc(row.upc);
+      },
+      (err) => {
+        this.matDialog.open(ProductNotFoundComponent, {
+          height: '200px',
+          width: '410px',
+        });
+      }
+    );
+
+    console.log(row.upc);
+  }
+
+  /*
+    will show the pop up window to update
+  */
+  editPopUp(row: any) {
+    console.log('Open pop up');
+    console.log('To delete Product Check : ' + row.upc);
+    this.ps.getProductById(row.upc).subscribe(
+      (product) => {
+        console.log('print this' + product.prodName);
+        this.matDialog.open(EditProductBtnComponent, {
+          height: '770px',
+          width: '500px',
+        });
+        this.ps.setUpc(row.upc);
+      },
+      (err) => {
+        this.matDialog.open(ProductNotFoundComponent, {
+          height: '200px',
+          width: '410px',
+        });
+        // console.log('no product found');
+        // alert('no product found');
+        // window.location.reload();
+      }
+    );
+    console.log(row.upc);
+  }
   signOut(): void {
     this._authService.signOut();
     localStorage.removeItem('APP_TOKEN');
