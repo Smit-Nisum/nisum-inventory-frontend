@@ -9,9 +9,11 @@ import { ProductService } from 'src/shared/services/product.service';
 import { SearchService } from 'src/shared/services/search.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
-import { TableVirtualScrollDataSource } from 'ng-table-virtual-scroll';
+import { SocialAuthService } from 'angularx-social-login';
+import { Router } from '@angular/router';
 
-import { MatSort, Sort } from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 
 interface Product { upc: string, prodName: string, category: String, pricePerUnit: number, availableStock: number, reservedStock: number, shippedStock: number }
@@ -25,10 +27,12 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
   products: Product[] = [];
 
   // TableVirtualScrollDataSource will hold the data for the material table
-  dataSource = new TableVirtualScrollDataSource(this.products);
+  dataSource = new MatTableDataSource(this.products);
 
   // Sort object to sort columns of the table by
   @ViewChild('productSort') productSort = new MatSort();
+  //used for pagination of products table
+  @ViewChild('paginator') paginator!: MatPaginator;
 
   columns = [
     'upc',
@@ -67,8 +71,11 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private ps: ProductService,
-    private searchService: SearchService
-  ) { }
+    private searchService: SearchService,
+    private readonly _authService: SocialAuthService,
+    private router: Router
+  ) {}
+
 
   //grab data from the source
   ngOnInit(): void {
@@ -83,6 +90,7 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.productSort;
+    this.dataSource.paginator = this.paginator;
   }
 
   ngOnDestroy(): void {
@@ -91,10 +99,11 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   initProducts(products: any) {
     this.products = products;
+    this.dataSource = new MatTableDataSource(this.products);
 
-    this.dataSource = new TableVirtualScrollDataSource(this.products);
 
-    // this.dataSource.sort = this.productSort;
+    this.dataSource.sort = this.productSort;
+    this.dataSource.paginator = this.paginator;
   }
 
 
@@ -144,6 +153,12 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filterText = this.filterText.trim(); // Remove whitespace
     this.filterText = this.filterText.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = this.filterText;
+  }
+
+  signOut(): void {
+    this._authService.signOut();
+    localStorage.removeItem('APP_TOKEN');
+    this.router.navigate(['/login-page']);
   }
 }
 

@@ -1,12 +1,13 @@
-<div>
+<!-- <div >
   <nav class="navbar navbar-light" style="background-color: #5cb4f4">
     <a class="navbar-brand" href="#">
       <img src="../assets/logo/image.png" width="150" height="50" />
     </a>
   </nav>
-</div>
-<div>
-  <br />
+</div> -->
+
+<!-- <div *ngIf="!user">
+  <br /> -->
   <div class="text-center"><h2>Login</h2></div>
 
   <div class="text-center">
@@ -16,39 +17,25 @@
       ><img
         src="https://img.icons8.com/color/16/000000/google-logo.png"
         width="30"
-        height="30"
-      />
-      Sign-in With Google</a
-    >
+        height="30"/>
+      Sign-in With Google</a>
   </div>  
-</div>
+<!-- </div> -->
 
 
 
+  <!-- <div *ngIf="user" class="card text-center">
+    <a routerlink = '/products'></a> -->
+    
+    <!-- <div class="card-block"></div>
 
-<div class="jumbotron bg-transparent text-center">
-  <div *ngIf="user" class="card text-center">
-    <div class="card-block"></div>
-    <!-- <img
-      *ngIf="user.photoUrl"
-      class="card-img-top img-responsive photo"
-      src="{{ user.photoUrl }}"
-    /> -->
     <div class="card-block">
       <h4 class="card-title">{{ user.name }}</h4>
       <p class="card-text">{{ user.email }}</p>
       <p class="card-text">Logged in with {{ user.provider }}</p>
-    </div>
-    <div class="card-block">
+    </div> -->
+    <!-- <div class="card-block">
       <button class="btn btn-danger" (click)="signOut()">Sign out</button>
-    </div>
-    <div
-      class="card-block"
-      *ngIf="user.provider === GoogleLoginProvider.PROVIDER_ID"
-    >
-      <!-- <button class="btn" (click)="refreshGoogleToken()">
-        Refresh google token
-      </button> -->
-    </div>
-  </div>
-</div>
+    </div> -->
+  <!-- </div> -->
+
