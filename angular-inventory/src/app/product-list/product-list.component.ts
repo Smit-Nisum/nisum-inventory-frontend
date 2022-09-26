@@ -10,6 +10,8 @@ import { SearchService } from 'src/shared/services/search.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { TableVirtualScrollDataSource } from 'ng-table-virtual-scroll';
+import { SocialAuthService } from 'angularx-social-login';
+import { Router } from '@angular/router';
 
 import { MatSort, Sort } from '@angular/material/sort';
 
@@ -64,7 +66,9 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private ps: ProductService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private readonly _authService: SocialAuthService, 
+    private router: Router
   ) {}
 
   //grab data from the source
@@ -115,5 +119,12 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filterText = this.filterText.trim(); // Remove whitespace
     this.filterText = this.filterText.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = this.filterText;
+  }
+
+
+  signOut(): void {
+    this._authService.signOut();
+    localStorage.removeItem('APP_TOKEN');
+    this.router.navigate(['/login-page']);
   }
 }
