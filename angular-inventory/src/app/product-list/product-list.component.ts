@@ -12,11 +12,18 @@ import { Subscription } from 'rxjs';
 import { SocialAuthService } from 'angularx-social-login';
 import { Router } from '@angular/router';
 
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 
-
-interface Product { upc: string, prodName: string, category: String, pricePerUnit: number, availableStock: number, reservedStock: number, shippedStock: number }
+interface Product {
+  upc: string;
+  prodName: string;
+  category: String;
+  pricePerUnit: number;
+  availableStock: number;
+  reservedStock: number;
+  shippedStock: number;
+}
 
 @Component({
   selector: 'app-product-list',
@@ -76,7 +83,6 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router
   ) {}
 
-
   //grab data from the source
   ngOnInit(): void {
     this.subscription = this.searchService.filterText$.subscribe((text) => {
@@ -101,12 +107,9 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.products = products;
     this.dataSource = new MatTableDataSource(this.products);
 
-
     this.dataSource.sort = this.productSort;
     this.dataSource.paginator = this.paginator;
   }
-
-
 
   getDisplayColumns() {
     const result = Object.values(this.displayProductTable);
@@ -125,20 +128,33 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dataSource.data = sortedData.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
-        case 'upc': return compare(a.upc, b.upc, isAsc);
-        case 'prodName': return compare(a.prodName.toLowerCase(), b.prodName.toLowerCase(), isAsc);
-        case 'category': return compare(a.category.toLowerCase(), b.category.toLowerCase(), isAsc);
-        case 'pricePerUnit': return compare(a.pricePerUnit, b.pricePerUnit, isAsc);
-        case 'availableStock': return compare(a.availableStock, b.availableStock, isAsc);
-        case 'reservedStock': return compare(a.reservedStock, b.reservedStock, isAsc);
-        case 'shippedStock': return compare(a.shippedStock, b.shippedStock, isAsc);
-        default: return 0;
+        case 'upc':
+          return compare(a.upc, b.upc, isAsc);
+        case 'prodName':
+          return compare(
+            a.prodName.toLowerCase(),
+            b.prodName.toLowerCase(),
+            isAsc
+          );
+        case 'category':
+          return compare(
+            a.category.toLowerCase(),
+            b.category.toLowerCase(),
+            isAsc
+          );
+        case 'pricePerUnit':
+          return compare(a.pricePerUnit, b.pricePerUnit, isAsc);
+        case 'availableStock':
+          return compare(a.availableStock, b.availableStock, isAsc);
+        case 'reservedStock':
+          return compare(a.reservedStock, b.reservedStock, isAsc);
+        case 'shippedStock':
+          return compare(a.shippedStock, b.shippedStock, isAsc);
+        default:
+          return 0;
       }
-    })
+    });
   }
-
-
-
 
   /*
     Will return the dom reference of the current row selected
