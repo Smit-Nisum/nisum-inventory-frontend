@@ -16,6 +16,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { EditProductBtnComponent } from '../edit-product-btn/edit-product-btn.component';
+import { ProductNotFoundComponent } from '../product-not-found/product-not-found.component';
 
 @Component({
   selector: 'app-product-list',
@@ -137,8 +138,10 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
         this.ps.setUpc(row.upc);
       },
       (err) => {
-        alert('product already deleted!');
-        window.location.reload();
+        this.matDialog.open(ProductNotFoundComponent, {
+          height: '200px',
+          width: '410px',
+        });
       }
     );
 
@@ -161,9 +164,13 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
         this.ps.setUpc(row.upc);
       },
       (err) => {
-        console.log('no product found');
-        alert('no product found');
-        window.location.reload();
+        this.matDialog.open(ProductNotFoundComponent, {
+          height: '200px',
+          width: '410px',
+        });
+        // console.log('no product found');
+        // alert('no product found');
+        // window.location.reload();
       }
     );
     console.log(row.upc);
