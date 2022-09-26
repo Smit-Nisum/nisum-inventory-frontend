@@ -19,7 +19,6 @@ import { CreateProductBtnComponent } from './create-product-btn/create-product-b
 
 import { MatTableModule } from '@angular/material/table';
 import { SearchBarComponent } from './search-bar/search-bar.component';
-import { FormsModule } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { TableVirtualScrollModule } from 'ng-table-virtual-scroll';
 import { MatSortModule } from '@angular/material/sort';
