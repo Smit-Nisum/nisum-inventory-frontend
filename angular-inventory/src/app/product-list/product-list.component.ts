@@ -15,13 +15,16 @@ import { Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 
+
+interface Product { upc: string, prodName: string, category: String, pricePerUnit: number, availableStock: number, reservedStock: number, shippedStock: number }
+
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
-  products = [];
+  products: Product[] = [];
 
   // TableVirtualScrollDataSource will hold the data for the material table
   dataSource = new MatTableDataSource(this.products);
@@ -73,6 +76,7 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router
   ) {}
 
+
   //grab data from the source
   ngOnInit(): void {
     this.subscription = this.searchService.filterText$.subscribe((text) => {
@@ -97,9 +101,12 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.products = products;
     this.dataSource = new MatTableDataSource(this.products);
 
+
     this.dataSource.sort = this.productSort;
     this.dataSource.paginator = this.paginator;
   }
+
+
 
   getDisplayColumns() {
     const result = Object.values(this.displayProductTable);
@@ -107,7 +114,31 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     return Object.values(result);
   }
 
-  onClickSort() {}
+  public sortData(sort: Sort) {
+    const sortedData = this.products.slice();
+
+    if (!sort.active || sort.direction === '') {
+      this.dataSource.data = sortedData;
+      return;
+    }
+
+    this.dataSource.data = sortedData.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'upc': return compare(a.upc, b.upc, isAsc);
+        case 'prodName': return compare(a.prodName.toLowerCase(), b.prodName.toLowerCase(), isAsc);
+        case 'category': return compare(a.category.toLowerCase(), b.category.toLowerCase(), isAsc);
+        case 'pricePerUnit': return compare(a.pricePerUnit, b.pricePerUnit, isAsc);
+        case 'availableStock': return compare(a.availableStock, b.availableStock, isAsc);
+        case 'reservedStock': return compare(a.reservedStock, b.reservedStock, isAsc);
+        case 'shippedStock': return compare(a.shippedStock, b.shippedStock, isAsc);
+        default: return 0;
+      }
+    })
+  }
+
+
+
 
   /*
     Will return the dom reference of the current row selected
@@ -129,4 +160,8 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     localStorage.removeItem('APP_TOKEN');
     this.router.navigate(['/login-page']);
   }
+}
+
+function compare(a: number | string, b: number | string, isAsc: boolean) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
