@@ -1,0 +1,78 @@
+<hr/>
+<button type="button" class="btn btn-primary" (click)="openPopup()">CREATE</button>
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Product</h4>
+                <button type="button" class="btn btn-danger" (click)="closePopup()">
+                    X
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
+
+                    <div class="form-group">
+                        <label for="upc">UPC</label>
+                        <input type="string" class="form-control" id="upc" formControlName="upc" placeholder="Enter UPC">
+                        <small class="form-text text-muted">Please enter a 12 digit upc</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="prodname">Product Name</label>
+                        <input type="string" class="form-control" id="prodname" formControlName="prodName" placeholder="Enter Product Name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="brand">Brand</label>
+                        <input type="string" class="form-control" id="brand" formControlName="brand" placeholder="Enter brand ">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="proddesc">Product Description</label>
+                        <input type="string" class="form-control" id="proddesc" formControlName="prodDesc" placeholder="Enter Product Description">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <input type="string" class="form-control" id="category" formControlName="category" placeholder="Enter Category">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priceperunit">Enter Price Per Unit</label>
+                        <input type="string" class="form-control" id="priceperunit" formControlName="pricePerUnit" placeholder="Enter Price Per Unit">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="imageurl">Image URL</label>
+                        <input type="string" class="form-control" id="imageurl" formControlName="imageURL" placeholder="Enter Image URL">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="availablestock">Available Stock</label>
+                        <input type="string" class="form-control" id="availablestock" formControlName="availableStock" placeholder="Enter Available Stock">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reservedstock">Reserved Stock</label>
+                        <input type="string" class="form-control" id="reservedstock" formControlName="reservedStock" placeholder="Enter Reserved Stock">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shippedstock">Shipped Stock</label>
+                        <input type="string" class="form-control" id="shippedstock" formControlName="shippedStock" placeholder="Enter Shipped Stock">
+                    </div>
+
+   
+
+                    <button class="btn btn-primary" type="submit">Submit</button>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                
+            </div>
+        </div>
+    </div>
+</div>
