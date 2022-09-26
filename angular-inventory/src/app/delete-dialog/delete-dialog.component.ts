@@ -41,11 +41,4 @@ export class DeleteDialogComponent implements OnInit {
     }
     // console.log(this.pListComp.upcValue);
   }
-
-  /*
-    Will delete the product when the user click Yes
-  */
-  clickNo() {
-    console.log('no');
-  }
 }

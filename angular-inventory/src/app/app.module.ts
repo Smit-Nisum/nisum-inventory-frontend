@@ -24,6 +24,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { EditProductBtnComponent } from './edit-product-btn/edit-product-btn.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
     SearchBarComponent,
     CreateProductBtnComponent,
     DeleteDialogComponent,
+    EditProductBtnComponent,
   ],
   imports: [
     BrowserModule,

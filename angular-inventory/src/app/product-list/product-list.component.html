@@ -13,14 +13,27 @@
     <ng-container matColumnDef="View/Edit">
       <mat-header-cell *matHeaderCellDef> View/Edit </mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button mat-button>Edit</button>
+        <button
+          mat-button
+          mat-raised-button
+          class="btn btn-primary"
+          class="btn btn-primary"
+          (click)="editPopUp(row)"
+        >
+          Edit
+        </button>
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="Delete">
       <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button mat-button mat-raised-button (click)="openDialog(row)">
+        <button
+          mat-button
+          mat-raised-button
+          class="btn btn-danger"
+          (click)="openDialog(row)"
+        >
           Delete
         </button>
       </mat-cell>

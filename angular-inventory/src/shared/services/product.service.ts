@@ -27,6 +27,14 @@ export class ProductService {
     return this.http.delete<any>(`${this.baseUrl}/delete/${upc}`);
   }
 
+  getProductById(id: string) {
+    return this.http.get<any>(`${this.baseUrl}/get/${id}`);
+  }
+
+  updateProduct(product: any) {
+    return this.http.put<any>(`${this.baseUrl}/update`, product);
+  }
+
   setUpc(upc: string) {
     this.upcValue = upc;
   }
