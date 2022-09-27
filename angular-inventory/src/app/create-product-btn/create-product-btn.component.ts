@@ -69,11 +69,8 @@ export class CreateProductBtnComponent implements OnInit {
   onSubmit(): void{
     if(!this.addProductForm.valid){
       console.log("Form is invalid");
-      
     }
     else {
-      
-
       if (window.confirm("Do you really want to create this product?")) {
         this.product = this.addProductForm.value;
         console.log(this.product);
