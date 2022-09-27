@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 import { SocialAuthService } from 'angularx-social-login';
 import { Router } from '@angular/router';
 
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 
 
@@ -74,7 +74,7 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     private searchService: SearchService,
     private readonly _authService: SocialAuthService,
     private router: Router
-  ) {}
+  ) { }
 
 
   //grab data from the source
