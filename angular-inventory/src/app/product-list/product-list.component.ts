@@ -15,8 +15,20 @@ import { Router } from '@angular/router';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 
+interface Product {
+  upc: string;
+  prodName: string;
+  category: String;
+  pricePerUnit: number;
+  availableStock: number;
+  reservedStock: number;
+  shippedStock: number;
+}
 
-interface Product { upc: string, prodName: string, category: String, pricePerUnit: number, availableStock: number, reservedStock: number, shippedStock: number }
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { EditProductBtnComponent } from '../edit-product-btn/edit-product-btn.component';
+import { ProductNotFoundComponent } from '../product-not-found/product-not-found.component';
 
 @Component({
   selector: 'app-product-list',
@@ -25,6 +37,7 @@ interface Product { upc: string, prodName: string, category: String, pricePerUni
 })
 export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
   products: Product[] = [];
+  upcValue: string = 'hello';
 
   // TableVirtualScrollDataSource will hold the data for the material table
   dataSource = new MatTableDataSource(this.products);
@@ -68,14 +81,15 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
   filterText = '';
 
   subscription: Subscription;
+  dialogRef: any;
 
   constructor(
     private ps: ProductService,
     private searchService: SearchService,
+    private matDialog: MatDialog,
     private readonly _authService: SocialAuthService,
     private router: Router
   ) { }
-
 
   //grab data from the source
   ngOnInit(): void {
@@ -101,12 +115,9 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.products = products;
     this.dataSource = new MatTableDataSource(this.products);
 
-
     this.dataSource.sort = this.productSort;
     this.dataSource.paginator = this.paginator;
   }
-
-
 
   getDisplayColumns() {
     const result = Object.values(this.displayProductTable);
@@ -125,20 +136,33 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dataSource.data = sortedData.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
-        case 'upc': return compare(a.upc, b.upc, isAsc);
-        case 'prodName': return compare(a.prodName.toLowerCase(), b.prodName.toLowerCase(), isAsc);
-        case 'category': return compare(a.category.toLowerCase(), b.category.toLowerCase(), isAsc);
-        case 'pricePerUnit': return compare(a.pricePerUnit, b.pricePerUnit, isAsc);
-        case 'availableStock': return compare(a.availableStock, b.availableStock, isAsc);
-        case 'reservedStock': return compare(a.reservedStock, b.reservedStock, isAsc);
-        case 'shippedStock': return compare(a.shippedStock, b.shippedStock, isAsc);
-        default: return 0;
+        case 'upc':
+          return compare(a.upc, b.upc, isAsc);
+        case 'prodName':
+          return compare(
+            a.prodName.toLowerCase(),
+            b.prodName.toLowerCase(),
+            isAsc
+          );
+        case 'category':
+          return compare(
+            a.category.toLowerCase(),
+            b.category.toLowerCase(),
+            isAsc
+          );
+        case 'pricePerUnit':
+          return compare(a.pricePerUnit, b.pricePerUnit, isAsc);
+        case 'availableStock':
+          return compare(a.availableStock, b.availableStock, isAsc);
+        case 'reservedStock':
+          return compare(a.reservedStock, b.reservedStock, isAsc);
+        case 'shippedStock':
+          return compare(a.shippedStock, b.shippedStock, isAsc);
+        default:
+          return 0;
       }
-    })
+    });
   }
-
-
-
 
   /*
     Will return the dom reference of the current row selected
@@ -155,6 +179,56 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dataSource.filter = this.filterText;
   }
 
+  /*
+    Will show the pop up dialog before delete product
+  */
+  openDialog(row: any) {
+    this.ps.getProductById(row.upc).subscribe(
+      (product) => {
+        this.matDialog.open(DeleteDialogComponent, {
+          height: '200',
+          width: '250px',
+        });
+        this.ps.setUpc(row.upc);
+      },
+      (err) => {
+        this.matDialog.open(ProductNotFoundComponent, {
+          height: '200px',
+          width: '410px',
+        });
+      }
+    );
+
+    console.log(row.upc);
+  }
+
+  /*
+    will show the pop up window to update
+  */
+  editPopUp(row: any) {
+    console.log('Open pop up');
+    console.log('To delete Product Check : ' + row.upc);
+    this.ps.getProductById(row.upc).subscribe(
+      (product) => {
+        console.log('print this' + product.prodName);
+        this.matDialog.open(EditProductBtnComponent, {
+          height: '770px',
+          width: '500px',
+        });
+        this.ps.setUpc(row.upc);
+      },
+      (err) => {
+        this.matDialog.open(ProductNotFoundComponent, {
+          height: '200px',
+          width: '410px',
+        });
+        // console.log('no product found');
+        // alert('no product found');
+        // window.location.reload();
+      }
+    );
+    console.log(row.upc);
+  }
   signOut(): void {
     this._authService.signOut();
     localStorage.removeItem('APP_TOKEN');
