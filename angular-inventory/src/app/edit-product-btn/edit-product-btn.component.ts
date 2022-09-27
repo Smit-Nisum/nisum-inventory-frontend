@@ -38,6 +38,7 @@ export class EditProductBtnComponent implements OnInit {
       alert('Invalid');
     } else {
       this.ps.getProductById(this.ps.upcValue).subscribe((product: any) => {
+        this.products = product;
         console.log(product);
 
         console.log('product.upc ' + product.upc);

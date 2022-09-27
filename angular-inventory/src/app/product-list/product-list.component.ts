@@ -74,8 +74,8 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private ps: ProductService,
     private searchService: SearchService,
-    private matDialog: MatDialog
-    private readonly _authService: SocialAuthService, 
+    private matDialog: MatDialog,
+    private readonly _authService: SocialAuthService,
     private router: Router
   ) {}
 
@@ -178,6 +178,7 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     );
     console.log(row.upc);
+  }
 
   signOut(): void {
     this._authService.signOut();
