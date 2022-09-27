@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class ProductService {
-  baseUrl: string = environment.baseUrl;
+  baseUrl: string = `http://localhost:8080/api/products`;
   upcValue: string;
 
   constructor(private http: HttpClient) {}
