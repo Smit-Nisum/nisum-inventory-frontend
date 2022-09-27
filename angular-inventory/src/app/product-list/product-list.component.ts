@@ -89,7 +89,7 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     private matDialog: MatDialog,
     private readonly _authService: SocialAuthService,
     private router: Router
-  ) { }
+  ) {}
 
   //grab data from the source
   ngOnInit(): void {
@@ -229,10 +229,14 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     );
     console.log(row.upc);
   }
-  signOut(): void {
-    this._authService.signOut();
-    localStorage.removeItem('APP_TOKEN');
-    this.router.navigate(['/login-page']);
+  async signOut(): Promise<void> {
+    try {
+      await this._authService.signOut();
+      localStorage.removeItem('APP_TOKEN');
+      this.router.navigate(['/login-page']);
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 
