@@ -94,17 +94,8 @@ export class CreateProductBtnComponent implements OnInit {
     console.log("product has been sent to backend");
     this.product = {};
     this.addProductForm.reset();
-    this.closePopup();
+    
 
-  }
-
-  displayStyle = "none";
-  
-  openPopup() {
-    this.displayStyle = "block";
-  }
-  closePopup() {
-    this.displayStyle = "none";
   }
 
   

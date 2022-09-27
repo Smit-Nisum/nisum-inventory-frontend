@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateProductBtnComponent } from '../create-product-btn/create-product-btn.component';
 
 @Component({
   selector: 'app-product-view-page',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductViewPageComponent implements OnInit {
 
-  constructor() { }
+  
 
   ngOnInit(): void {
+  }
+
+  constructor(private dialogRef : MatDialog){}
+
+  openDialog(){
+    console.log("open dialog fn")
+    this.dialogRef.open(CreateProductBtnComponent,{ height: '770px',
+    width: '500px'})
   }
 
 }
