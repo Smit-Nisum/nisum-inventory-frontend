@@ -7,7 +7,6 @@ import {
 } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -16,10 +15,8 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CreateProductBtnComponent } from './create-product-btn/create-product-btn.component';
 
-
 import { MatTableModule } from '@angular/material/table';
 import { SearchBarComponent } from './search-bar/search-bar.component';
-import { FormsModule } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { TableVirtualScrollModule } from 'ng-table-virtual-scroll';
 import { MatSortModule } from '@angular/material/sort';
@@ -30,7 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LoginPageComponent,
     ProductListComponent,
     SearchBarComponent,
-    CreateProductBtnComponent
+    CreateProductBtnComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +40,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TableVirtualScrollModule,
     MatSortModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     {
