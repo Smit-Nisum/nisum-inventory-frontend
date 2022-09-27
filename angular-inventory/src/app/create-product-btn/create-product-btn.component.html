@@ -1,77 +1,73 @@
-<hr/>
-<button type="button" class="btn btn-primary" (click)="openPopup()">CREATE</button>
-<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+   <div> 
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Add Product</h4>
-                <button type="button" class="btn btn-danger" (click)="closePopup()">
-                    X
-                </button>
+                <h2 class="modal-title">Add Product</h2>
+                <button mat-button mat-dialog-close class="btn btn-danger">X</button>
             </div>
+            <hr />
             <div class="modal-body">
                 <form [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
 
                     <div class="form-group">
-                        <label for="upc">UPC</label>
+                        <label for="upc"><b>UPC</b></label>
                         <input type="string" class="form-control" id="upc" formControlName="upc" placeholder="Enter UPC">
-                        <small class="form-text text-muted">Please enter a 12 digit upc</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="prodname">Product Name</label>
+                        <label for="prodname"><b>Product Name</b></label>
                         <input type="string" class="form-control" id="prodname" formControlName="prodName" placeholder="Enter Product Name">
                     </div>
 
                     <div class="form-group">
-                        <label for="brand">Brand</label>
+                        <label for="brand"><b>Brand</b></label>
                         <input type="string" class="form-control" id="brand" formControlName="brand" placeholder="Enter brand ">
                     </div>
 
                     <div class="form-group">
-                        <label for="proddesc">Product Description</label>
+                        <label for="proddesc"><b>Product Description</b></label>
                         <input type="string" class="form-control" id="proddesc" formControlName="prodDesc" placeholder="Enter Product Description">
                     </div>
 
 
                     <div class="form-group">
-                        <label for="category">Category</label>
+                        <label for="category"><b>Category</b></label>
                         <input type="string" class="form-control" id="category" formControlName="category" placeholder="Enter Category">
                     </div>
 
                     <div class="form-group">
-                        <label for="priceperunit">Enter Price Per Unit</label>
+                        <label for="priceperunit"><b>Enter Price Per Unit</b></label>
                         <input type="string" class="form-control" id="priceperunit" formControlName="pricePerUnit" placeholder="Enter Price Per Unit">
                     </div>
 
                     <div class="form-group">
-                        <label for="imageurl">Image URL</label>
+                        <label for="imageurl"><b>Image URL</b></label>
                         <input type="string" class="form-control" id="imageurl" formControlName="imageURL" placeholder="Enter Image URL">
                     </div>
 
                     <div class="form-group">
-                        <label for="availablestock">Available Stock</label>
+                        <label for="availablestock"><b>Available Stock</b></label>
                         <input type="string" class="form-control" id="availablestock" formControlName="availableStock" placeholder="Enter Available Stock">
                     </div>
 
                     <div class="form-group">
-                        <label for="reservedstock">Reserved Stock</label>
+                        <label for="reservedstock"><b>Reserved Stock</b></label>
                         <input type="string" class="form-control" id="reservedstock" formControlName="reservedStock" placeholder="Enter Reserved Stock">
                     </div>
 
                     <div class="form-group">
-                        <label for="shippedstock">Shipped Stock</label>
+                        <label for="shippedstock"><b>Shipped Stock</b></label>
                         <input type="string" class="form-control" id="shippedstock" formControlName="shippedStock" placeholder="Enter Shipped Stock">
                     </div>
 
    
 
-                    <button class="btn btn-primary" type="submit">Submit</button>
+                    <button class="btn btn-primary" mat-button mat-dialog-close type="submit">Submit</button>
+                    <button mat-button mat-dialog-close class="btn btn-danger">
+                        Close
+                    </button>
 
                 </form>
-            </div>
-            <div class="modal-footer">
-                
             </div>
         </div>
     </div>

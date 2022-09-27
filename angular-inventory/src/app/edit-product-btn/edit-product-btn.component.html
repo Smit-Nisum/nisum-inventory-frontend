@@ -1,0 +1,135 @@
+<div>
+  <div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">View/Edit Product</h2>
+        <button mat-button mat-dialog-close class="btn btn-danger">X</button>
+      </div>
+      <hr />
+
+      <!-- body -->
+      <div class="modal-body">
+        <form [formGroup]="productForm" (ngSubmit)="editProduct()">
+          <div class="form-group">
+            <label for="upc"><b>UPC</b></label>
+            <input
+              type="string"
+              class="form-control"
+              id="upc"
+              formControlName="upc"
+              placeholder="Edit UPC"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="prodName"><b>Product Name</b></label>
+            <input
+              type="string"
+              class="form-control"
+              id="prodName"
+              formControlName="prodName"
+              placeholder="Edit Product Name"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="brand"><b>Brand</b></label>
+            <input
+              type="string"
+              class="form-control"
+              id="brand"
+              formControlName="brand"
+              placeholder="Edit Brand"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="prodDescription"><b>Product Description</b></label>
+            <input
+              type="string"
+              class="form-control"
+              id="prodDescription"
+              formControlName="prodDesc"
+              placeholder="Edit Product Description"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="category"><b>Category</b></label>
+            <input
+              type="string"
+              class="form-control"
+              id="category"
+              formControlName="category"
+              placeholder="Edit Category"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="pricePerUnit"><b>Price per Unit</b></label>
+            <input
+              type="string"
+              class="form-control"
+              id="pricePerUnit"
+              formControlName="pricePerUnit"
+              placeholder="Edit Product Price per Unit"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="imageURL"><b>Image URL</b></label>
+            <input
+              type="string"
+              class="form-control"
+              id="imageURL"
+              formControlName="imageURL"
+              placeholder="Edit Image"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="availableStock"><b>Available Stock</b></label>
+            <input
+              type="string"
+              class="form-control"
+              id="availableStock"
+              formControlName="availableStock"
+              placeholder="Edit Available Stock"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="reservedStock"><b>Reserved Stock</b></label>
+            <input
+              type="string"
+              class="form-control"
+              id="reservedStock"
+              formControlName="reservedStock"
+              placeholder="Edit Reserved Stock"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="shippedStock"><b>Shipped Stock</b></label>
+            <input
+              type="string"
+              class="form-control"
+              id="shippedStock"
+              formControlName="shippedStock"
+              placeholder="Edit Shipped Stock"
+            />
+          </div>
+
+          <br />
+          <div>
+            <button class="btn btn-primary" type="submit">Update</button>
+            &nbsp;
+            <button mat-button mat-dialog-close class="btn btn-danger">
+              Close
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
