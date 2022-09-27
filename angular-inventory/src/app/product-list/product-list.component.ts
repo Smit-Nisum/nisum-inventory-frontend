@@ -89,7 +89,7 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     private matDialog: MatDialog,
     private readonly _authService: SocialAuthService,
     private router: Router
-  ) {}
+  ) { }
 
   //grab data from the source
   ngOnInit(): void {
