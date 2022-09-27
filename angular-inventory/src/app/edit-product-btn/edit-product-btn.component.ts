@@ -7,6 +7,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ProductService } from 'src/shared/services/product.service';
 
 @Component({
@@ -18,7 +19,11 @@ export class EditProductBtnComponent implements OnInit {
   productForm?: FormGroup | any;
   products: any;
 
-  constructor(private ps: ProductService, private fb: FormBuilder) {}
+  constructor(
+    private ps: ProductService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
 
   /*
     will update the product
@@ -28,6 +33,7 @@ export class EditProductBtnComponent implements OnInit {
     if (this.ps.upcValue) {
       this.ps.updateProduct(this.productForm.value).subscribe((product) => {
         console.log(product);
+        // this.router.navigate(['products']);
         window.location.reload();
       });
     }
@@ -37,7 +43,8 @@ export class EditProductBtnComponent implements OnInit {
     if (!this.ps.upcValue) {
       alert('Invalid');
     } else {
-      this.ps.getProductById(this.ps.upcValue).subscribe((product: any) => {
+      this.ps.getProductById(this.ps.upcValue).subscribe((result: any) => {
+        const { product } = result;
         console.log(product);
 
         console.log('product.upc ' + product.upc);
@@ -48,7 +55,7 @@ export class EditProductBtnComponent implements OnInit {
           upc: product.upc,
           prodName: product.prodName,
           brand: product.brand,
-          prodDescription: product.prodDescription,
+          prodDesc: product.prodDesc,
           category: product.category,
           pricePerUnit: product.pricePerUnit,
           imageURL: product.imageURL,
@@ -63,7 +70,7 @@ export class EditProductBtnComponent implements OnInit {
       upc: ['', [Validators.required]],
       prodName: ['', [Validators.required]],
       brand: ['', [Validators.required]],
-      prodDescription: ['', [Validators.required]],
+      prodDesc: ['', [Validators.required]],
       category: ['', [Validators.required]],
       pricePerUnit: ['', [Validators.required]],
       imageURL: ['', [Validators.required]],

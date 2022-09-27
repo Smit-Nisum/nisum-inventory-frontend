@@ -32,6 +32,7 @@ export class ProductService {
   }
 
   updateProduct(product: any) {
+    console.table(product);
     return this.http.put<any>(`${this.baseUrl}/update`, product);
   }
 
