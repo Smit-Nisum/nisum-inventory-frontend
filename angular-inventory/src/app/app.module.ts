@@ -17,7 +17,6 @@ import { CreateProductBtnComponent } from './create-product-btn/create-product-b
 
 import { MatTableModule } from '@angular/material/table';
 import { SearchBarComponent } from './search-bar/search-bar.component';
-
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { TableVirtualScrollModule } from 'ng-table-virtual-scroll';
 import { MatSortModule } from '@angular/material/sort';
@@ -38,6 +37,7 @@ import { ProductNotFoundComponent } from './product-not-found/product-not-found.
     ProductListComponent,
     SearchBarComponent,
     CreateProductBtnComponent,
+
     ProductViewPageComponent,
     DeleteDialogComponent,
     EditProductBtnComponent,
@@ -55,10 +55,10 @@ import { ProductNotFoundComponent } from './product-not-found/product-not-found.
     MatSortModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-
     MatPaginatorModule,
 
     MatDialogModule,
+
   ],
   providers: [
     {
