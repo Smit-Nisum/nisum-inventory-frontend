@@ -60,7 +60,7 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
   //previous columns are dynamic, append static columns at the end
   displayedColumns = this.columns.concat('View/Edit', 'Delete');
 
-  /* 
+  /*
     Displayed column names will be different from property value of the actual
      product object
   */
@@ -79,8 +79,11 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //search bar text will be displayed/updated here
   filterText = '';
+  category = '';
 
-  subscription: Subscription;
+  textSub: Subscription;
+  cateSub: Subscription;
+
   dialogRef: any;
 
   constructor(
@@ -93,12 +96,49 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //grab data from the source
   ngOnInit(): void {
-    this.subscription = this.searchService.filterText$.subscribe((text) => {
+    this.textSub = this.searchService.filterText$.subscribe((text) => {
       this.applyFilter(text);
     });
 
     this.ps.getProducts().subscribe((products) => {
       this.initProducts(products);
+    });
+
+    this.cateSub = this.searchService.category$.subscribe((search) => {
+      console.log("testingFilter");
+      const text = this.filterText;
+      this.category = search;
+
+      const applyFilter = this.applyFilter;
+
+      this.dataSource.filterPredicate = function(data, filter: string): boolean {
+        console.log(data);
+        console.log(filter);
+        console.log(text);
+        // <option value="All">All</option>
+        if (search === "Upc") {
+          // console.log();
+          return data.upc.toLowerCase().includes(filter === "" ? text :filter);
+        } else if (search === "Pname") {
+          return data.prodName.toLowerCase().includes(filter);
+        } else if (search === "category") {
+          return data.category.toLowerCase().includes(filter);
+        } else if (search === "PricePerUnit") {
+          return data.pricePerUnit.toString().includes(filter);
+        } else if (search === "AvailableStock") {
+          return data.availableStock.toString().includes(filter);
+        } else if (search === "ReservedStock") {
+          return data.reservedStock.toString().includes(filter);
+        } else if (search === "ShippedStock") {
+          return data.shippedStock.toString().includes(filter);
+        } else {
+          return false;
+        }
+
+        applyFilter(text);
+
+      // || data.symbol.toLowerCase().includes(filter) || data.position.toString().includes(filter)
+      };
     });
   }
 
@@ -108,7 +148,7 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.textSub.unsubscribe();
   }
 
   initProducts(products: any) {
@@ -177,6 +217,9 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filterText = this.filterText.trim(); // Remove whitespace
     this.filterText = this.filterText.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = this.filterText;
+    // this.dataSource.filterPredicate = function(data, filter: string): boolean {
+    //
+    // }
   }
 
   /*

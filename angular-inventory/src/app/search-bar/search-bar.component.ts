@@ -7,6 +7,7 @@ import { SearchService } from 'src/shared/services/search.service';
 })
 export class SearchBarComponent implements OnInit {
   filterText = '';
+  category = '';
   constructor(private searchService: SearchService) {}
 
   ngOnInit(): void {}
@@ -15,5 +16,10 @@ export class SearchBarComponent implements OnInit {
     this.searchService.setSearchText(event.target.value);
 
     // console.log(this.searchService.getSearchText());
+  }
+
+  handleDropdown(event: any) {
+    this.searchService.setCategory(event.target.value);
+    console.log(event.target.value)
   }
 }
