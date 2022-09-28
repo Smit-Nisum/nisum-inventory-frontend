@@ -13,7 +13,7 @@
           <div class="form-group">
             <label for="upc">
               <h1>
-                <b> UPC : {{ products.upc }} </b>
+                <b> UPC : {{ products ? products.upc : "" }} </b>
               </h1>
             </label>
           </div>
@@ -53,12 +53,12 @@
           </div>
 
           <div class="form-group">
-            <label for="prodDescription"><b>Product Description</b></label>
+            <label for="prodDesc"><b>Product Description</b></label>
             <input
               type="string"
               class="form-control"
-              id="prodDescription"
-              formControlName="prodDescription"
+              id="prodDesc"
+              formControlName="prodDesc"
               placeholder="Edit Product Description"
             />
 

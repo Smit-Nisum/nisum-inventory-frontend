@@ -50,8 +50,8 @@ export class EditProductBtnComponent implements OnInit {
     if (!this.ps.upcValue) {
       alert('Invalid');
     } else {
-      this.ps.getProductById(this.ps.upcValue).subscribe((product: any) => {
-        // const { product } = result;
+      this.ps.getProductById(this.ps.upcValue).subscribe((result: any) => {
+        const { product } = result;
 
         console.log(product);
 
@@ -63,7 +63,7 @@ export class EditProductBtnComponent implements OnInit {
           upc: product.upc,
           prodName: product.prodName,
           brand: product.brand,
-          prodDescription: product.prodDescription,
+          prodDesc: product.prodDesc,
           category: product.category,
           pricePerUnit: product.pricePerUnit,
           imageURL: product.imageURL,
@@ -78,7 +78,7 @@ export class EditProductBtnComponent implements OnInit {
       upc: ['', [Validators.required]],
       prodName: ['', [Validators.required]],
       brand: ['', [Validators.required]],
-      prodDescription: ['', [Validators.required]],
+      prodDesc: ['', [Validators.required]],
       category: ['', [Validators.required]],
       pricePerUnit: [
         '',
