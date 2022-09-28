@@ -29,6 +29,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { EditProductBtnComponent } from '../edit-product-btn/edit-product-btn.component';
 import { ProductNotFoundComponent } from '../product-not-found/product-not-found.component';
+import { ProductDetailModalComponent } from '../product-detail-modal/product-detail-modal.component';
 
 @Component({
   selector: 'app-product-list',
@@ -168,8 +169,14 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     Will return the dom reference of the current row selected
     will get called on button click by default
   */
-  selectedRow(row: any) {
+  selectedRow(row: any): void {
     console.log('selectedRow', row);
+    this.matDialog.open(ProductDetailModalComponent, {
+      width: '35%',
+      height: 'calc(60%)',
+      data: { ...row }
+    })
+    // this.dialog
   }
 
   applyFilter(text: string) {

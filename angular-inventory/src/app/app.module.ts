@@ -30,6 +30,7 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { EditProductBtnComponent } from './edit-product-btn/edit-product-btn.component';
 import { ProductNotFoundComponent } from './product-not-found/product-not-found.component';
 import { ProductDetailModalComponent } from './product-detail-modal/product-detail-modal.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,6 @@ import { ProductDetailModalComponent } from './product-detail-modal/product-deta
     ProductListComponent,
     SearchBarComponent,
     CreateProductBtnComponent,
-
     ProductViewPageComponent,
     DeleteDialogComponent,
     EditProductBtnComponent,
@@ -58,8 +58,8 @@ import { ProductDetailModalComponent } from './product-detail-modal/product-deta
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatPaginatorModule,
-
     MatDialogModule,
+    MatCardModule
 
   ],
   providers: [
@@ -80,4 +80,4 @@ import { ProductDetailModalComponent } from './product-detail-modal/product-deta
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
