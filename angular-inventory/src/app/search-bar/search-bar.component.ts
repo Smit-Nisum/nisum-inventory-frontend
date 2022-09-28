@@ -8,6 +8,7 @@ import { SearchService } from 'src/shared/services/search.service';
 export class SearchBarComponent implements OnInit {
   filterText = '';
   category = '';
+  selectedValue = 'all';
   constructor(private searchService: SearchService) {}
 
   ngOnInit(): void {}
@@ -20,6 +21,6 @@ export class SearchBarComponent implements OnInit {
 
   handleDropdown(event: any) {
     this.searchService.setCategory(event.target.value);
-    console.log(event.target.value)
+    console.log(event.target.value);
   }
 }

@@ -2,15 +2,15 @@
     <form class="d-flex">
         <input [(ngModel)]="filterText" (keyup)="handleChange($event)" class="search form-control me-2" type="search" placeholder="Search" aria-label="Search" name="Search">
 
-        <select [(ngModel)]="category" (change)="handleDropdown($event)" name="categoryDD">
-          <option value="All">All</option>
-          <option value="Upc">UPC</option>
-          <option value="Pname">Product Name</option>
+        <select [(ngModel)]="category" (change)="handleDropdown($event)" name="categoryDD" [(ngModel)]='selectedValue'>
+          <option value="all" >All</option>
+          <option value="upc">UPC</option>
+          <option value="prodName">Product Name</option>
           <option value="category">Category</option>
-          <option value="PricePerUnit">Price per Unit</option>
-          <option value="AvailableStock">Available Stock</option>
-          <option value="ReservedStock">Reserved Stock</option>
-          <option value="ShippedStock">Shipped Stock</option>
+          <option value="pricePerUnit">Price per Unit</option>
+          <option value="availableStock">Available Stock</option>
+          <option value="reservedStock">Reserved Stock</option>
+          <option value="shippedStock">Shipped Stock</option>
         </select>
     </form>
 </div>

@@ -97,6 +97,7 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
   //grab data from the source
   ngOnInit(): void {
     this.textSub = this.searchService.filterText$.subscribe((text) => {
+      this.filterText = text;
       this.applyFilter(text);
     });
 
@@ -104,41 +105,10 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
       this.initProducts(products);
     });
 
-    this.cateSub = this.searchService.category$.subscribe((search) => {
-      console.log("testingFilter");
-      const text = this.filterText;
+    this.cateSub = this.searchService.category$.subscribe((search: any) => {
       this.category = search;
-
-      const applyFilter = this.applyFilter;
-
-      this.dataSource.filterPredicate = function(data, filter: string): boolean {
-        console.log(data);
-        console.log(filter);
-        console.log(text);
-        // <option value="All">All</option>
-        if (search === "Upc") {
-          // console.log();
-          return data.upc.toLowerCase().includes(filter === "" ? text :filter);
-        } else if (search === "Pname") {
-          return data.prodName.toLowerCase().includes(filter);
-        } else if (search === "category") {
-          return data.category.toLowerCase().includes(filter);
-        } else if (search === "PricePerUnit") {
-          return data.pricePerUnit.toString().includes(filter);
-        } else if (search === "AvailableStock") {
-          return data.availableStock.toString().includes(filter);
-        } else if (search === "ReservedStock") {
-          return data.reservedStock.toString().includes(filter);
-        } else if (search === "ShippedStock") {
-          return data.shippedStock.toString().includes(filter);
-        } else {
-          return false;
-        }
-
-        applyFilter(text);
-
-      // || data.symbol.toLowerCase().includes(filter) || data.position.toString().includes(filter)
-      };
+      console.log(this.category);
+      this.applyFilter(this.filterText);
     });
   }
 
@@ -166,10 +136,12 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public sortData(sort: Sort) {
-    const sortedData = this.products.slice();
+    const sortedData = this.dataSource.data.slice();
 
     if (!sort.active || sort.direction === '') {
-      this.dataSource.data = sortedData;
+      this.dataSource.data = sortedData.sort((a, b) => {
+        return compare(a.upc, b.upc, true);
+      });
       return;
     }
 
@@ -217,9 +189,24 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filterText = this.filterText.trim(); // Remove whitespace
     this.filterText = this.filterText.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = this.filterText;
-    // this.dataSource.filterPredicate = function(data, filter: string): boolean {
-    //
-    // }
+    if (this.category !== 'all') {
+      this.filterByDropDown(this.category);
+    }
+  }
+
+  filterByDropDown(search: any) {
+    this.dataSource.data = this.products.filter((p) => {
+      const field = p[search as keyof Product];
+
+      if (typeof field === 'string') {
+        return field.toLowerCase().includes(this.filterText.toLowerCase());
+      } else if (field === 'all') {
+        return field.toLowerCase().includes(this.filterText.toLowerCase());
+      } else if (typeof field === 'number') {
+        return field.toString().includes(this.filterText);
+      }
+      return true;
+    });
   }
 
   /*
