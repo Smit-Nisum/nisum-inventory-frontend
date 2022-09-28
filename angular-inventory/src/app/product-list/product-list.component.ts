@@ -29,6 +29,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { EditProductBtnComponent } from '../edit-product-btn/edit-product-btn.component';
 import { ProductNotFoundComponent } from '../product-not-found/product-not-found.component';
+import { ProductDetailModalComponent } from '../product-detail-modal/product-detail-modal.component';
 
 @Component({
   selector: 'app-product-list',
@@ -60,7 +61,7 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
   //previous columns are dynamic, append static columns at the end
   displayedColumns = this.columns.concat('View/Edit', 'Delete');
 
-  /* 
+  /*
     Displayed column names will be different from property value of the actual
      product object
   */
@@ -79,8 +80,11 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //search bar text will be displayed/updated here
   filterText = '';
+  category = '';
 
-  subscription: Subscription;
+  textSub: Subscription;
+  cateSub: Subscription;
+
   dialogRef: any;
 
   constructor(
@@ -93,12 +97,19 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //grab data from the source
   ngOnInit(): void {
-    this.subscription = this.searchService.filterText$.subscribe((text) => {
+    this.textSub = this.searchService.filterText$.subscribe((text) => {
+      this.filterText = text;
       this.applyFilter(text);
     });
 
     this.ps.getProducts().subscribe((products) => {
       this.initProducts(products);
+    });
+
+    this.cateSub = this.searchService.category$.subscribe((search: any) => {
+      this.category = search;
+
+      this.applyFilter(this.filterText);
     });
   }
 
@@ -108,7 +119,7 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.textSub.unsubscribe();
   }
 
   initProducts(products: any) {
@@ -126,10 +137,12 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public sortData(sort: Sort) {
-    const sortedData = this.products.slice();
+    const sortedData = this.dataSource.data.slice();
 
     if (!sort.active || sort.direction === '') {
-      this.dataSource.data = sortedData;
+      this.dataSource.data = sortedData.sort((a, b) => {
+        return compare(a.upc, b.upc, true);
+      });
       return;
     }
 
@@ -168,8 +181,14 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     Will return the dom reference of the current row selected
     will get called on button click by default
   */
-  selectedRow(row: any) {
+  selectedRow(row: any): void {
     console.log('selectedRow', row);
+    this.matDialog.open(ProductDetailModalComponent, {
+      width: '35%',
+      height: 'calc(60%)',
+      data: { ...row }
+    })
+    // this.dialog
   }
 
   applyFilter(text: string) {
@@ -177,6 +196,31 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filterText = this.filterText.trim(); // Remove whitespace
     this.filterText = this.filterText.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = this.filterText;
+    this.filterByDropDown(this.category);
+  }
+
+  filterByDropDown(search: any) {
+    this.dataSource.data = this.products.filter((p) => {
+      const field = p[search as keyof Product];
+
+      if (this.category === 'all') {
+        let foundItem = false;
+        Object.entries(p).forEach((f) => {
+          console.log(f);
+          if (
+            f.toString().toLowerCase().includes(this.filterText.toLowerCase())
+          ) {
+            foundItem = true;
+          }
+        });
+        return foundItem;
+      } else if (typeof field === 'string') {
+        return field.toLowerCase().includes(this.filterText.toLowerCase());
+      } else if (typeof field === 'number') {
+        return field.toString().includes(this.filterText);
+      }
+      return true;
+    });
   }
 
   /*
@@ -228,9 +272,9 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     );
     console.log(row.upc);
+
   }
-  
-  
+
 }
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {

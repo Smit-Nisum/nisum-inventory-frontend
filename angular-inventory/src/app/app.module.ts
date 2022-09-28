@@ -30,6 +30,9 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { EditProductBtnComponent } from './edit-product-btn/edit-product-btn.component';
 import { ProductNotFoundComponent } from './product-not-found/product-not-found.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ProductDetailModalComponent } from './product-detail-modal/product-detail-modal.component';
+import { MatCardModule } from '@angular/material/card';
+
 
 @NgModule({
   declarations: [
@@ -38,12 +41,13 @@ import { NavbarComponent } from './navbar/navbar.component';
     ProductListComponent,
     SearchBarComponent,
     CreateProductBtnComponent,
-
     ProductViewPageComponent,
     DeleteDialogComponent,
     EditProductBtnComponent,
     ProductNotFoundComponent,
     NavbarComponent,
+    ProductDetailModalComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -58,8 +62,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatPaginatorModule,
-
     MatDialogModule,
+    MatCardModule
 
   ],
   providers: [
@@ -80,4 +84,4 @@ import { NavbarComponent } from './navbar/navbar.component';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

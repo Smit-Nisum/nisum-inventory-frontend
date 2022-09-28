@@ -1,51 +1,34 @@
 
+<mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)">
 
-<mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" >
+  <ng-container *ngFor="let item of displayProductTable | keyvalue" [matColumnDef]="item.key">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      {{ item.value | titlecase }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let product" (click)="selectedRow(product)">{{ product[item.key] }}</mat-cell>
+  </ng-container>
 
-    <ng-container *ngFor="let item of displayProductTable | keyvalue"
-    [matColumnDef]="item.key">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
-        {{ item.value | titlecase }}
-      </mat-header-cell>
-      <mat-cell  *matCellDef="let product">{{ product[item.key] }}</mat-cell>
-    </ng-container>
+  <ng-container matColumnDef="View/Edit">
+    <mat-header-cell *matHeaderCellDef>Edit </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button mat-button mat-raised-button class="btn btn-nisum" class="btn btn-nisum" (click)="editPopUp(row)">
+        Edit
+      </button>
+    </mat-cell>
+  </ng-container>
 
-   
-    <ng-container matColumnDef="View/Edit">
-      <mat-header-cell *matHeaderCellDef> View/Edit </mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <button
-          mat-button
-          mat-raised-button
-          class="btn btn-nisum"
-          class="btn btn-nisum"
-          (click)="editPopUp(row)"
-        >
-          Edit
-        </button>
-      </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Delete">
-      <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <button
-          mat-button
-          mat-raised-button
-          class="btn btn-danger"
-          (click)="openDialog(row)"
-        >
-          Delete
-        </button>
-      </mat-cell>
-    </ng-container>
+  <ng-container matColumnDef="Delete">
+    <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button mat-button mat-raised-button class="btn btn-danger" (click)="openDialog(row)">
+        Delete
+      </button>
+    </mat-cell>
+  </ng-container>
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns let i= index" (click)="selectedRow(row)"
-  [ngClass]="{'highlightTableColor': selectedRowIndex == i}"></mat-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns let i= index"
+    [ngClass]="{'highlightTableColor': selectedRowIndex == i}"></mat-row>
 </mat-table>
-    
+
 <mat-paginator #paginator [pageSize]="15" [pageSizeOptions]="[1,2,5, 15, 25, 100]">
 </mat-paginator>
-
-
-

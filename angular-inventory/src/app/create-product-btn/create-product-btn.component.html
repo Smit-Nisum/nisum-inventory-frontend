@@ -1,3 +1,8 @@
+   <style>
+    input.ng-invalid.ng-touched  {
+        border-color:red;
+    }
+   </style>
    <div> 
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -9,60 +14,82 @@
             <div class="modal-body">
                 <form [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
 
+                   
                     <div class="form-group">
                         <label for="upc"><b>UPC</b></label>
-                        <input type="string" class="form-control" id="upc" formControlName="upc" placeholder="Enter UPC">
+                        <input type="string" class="form-control" id="upc"  formControlName="upc" placeholder="Enter UPC">
+                        <small *ngIf="upc && upc.invalid && upc.touched" style="color:red;">Please input valid 12 digit UPC</small>
+                       
                     </div>
 
                     <div class="form-group">
                         <label for="prodname"><b>Product Name</b></label>
                         <input type="string" class="form-control" id="prodname" formControlName="prodName" placeholder="Enter Product Name">
+                        <small *ngIf="prodName && prodName.invalid && prodName.touched" style="color:red;">This field is required</small>
+
                     </div>
 
                     <div class="form-group">
                         <label for="brand"><b>Brand</b></label>
                         <input type="string" class="form-control" id="brand" formControlName="brand" placeholder="Enter brand ">
+                        <small *ngIf="brand && brand.invalid && brand.touched" style="color:red;">This field is required</small>
+
                     </div>
 
                     <div class="form-group">
                         <label for="proddesc"><b>Product Description</b></label>
                         <input type="string" class="form-control" id="proddesc" formControlName="prodDesc" placeholder="Enter Product Description">
+                        <small *ngIf="prodDesc && prodDesc.invalid && prodDesc.touched" style="color:red;">This field is required</small>
+
                     </div>
 
 
                     <div class="form-group">
                         <label for="category"><b>Category</b></label>
                         <input type="string" class="form-control" id="category" formControlName="category" placeholder="Enter Category">
+                        <small *ngIf="category && category.invalid && category.touched" style="color:red;">This field is required</small>
+
                     </div>
 
                     <div class="form-group">
                         <label for="priceperunit"><b>Enter Price Per Unit</b></label>
                         <input type="string" class="form-control" id="priceperunit" formControlName="pricePerUnit" placeholder="Enter Price Per Unit">
+                        <small *ngIf="pricePerUnit && pricePerUnit.invalid && pricePerUnit.touched" style="color:red;">Enter valid dollar amount</small>
+
                     </div>
 
                     <div class="form-group">
                         <label for="imageurl"><b>Image URL</b></label>
                         <input type="string" class="form-control" id="imageurl" formControlName="imageURL" placeholder="Enter Image URL">
+                        <small *ngIf="imageURL && imageURL.invalid && imageURL.touched" style="color:red;">This field is required</small>
+
                     </div>
 
                     <div class="form-group">
                         <label for="availablestock"><b>Available Stock</b></label>
                         <input type="string" class="form-control" id="availablestock" formControlName="availableStock" placeholder="Enter Available Stock">
+                        <small *ngIf="availableStock && availableStock.invalid && availableStock.touched" style="color:red;">This field is required</small>
+
                     </div>
 
                     <div class="form-group">
                         <label for="reservedstock"><b>Reserved Stock</b></label>
                         <input type="string" class="form-control" id="reservedstock" formControlName="reservedStock" placeholder="Enter Reserved Stock">
+                        <small *ngIf="reservedStock && reservedStock.invalid && reservedStock.touched" style="color:red;">This field is required</small>
+
                     </div>
 
                     <div class="form-group">
                         <label for="shippedstock"><b>Shipped Stock</b></label>
                         <input type="string" class="form-control" id="shippedstock" formControlName="shippedStock" placeholder="Enter Shipped Stock">
+                        <small *ngIf="shippedStock && shippedStock.invalid && shippedStock.touched" style="color:red;">This field is required</small>
+
                     </div>
 
    
 
-                    <button class="btn btn-nisum" mat-button mat-dialog-close type="submit">Submit</button>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+
                     <button mat-button mat-dialog-close class="btn btn-danger">
                         Close
                     </button>
