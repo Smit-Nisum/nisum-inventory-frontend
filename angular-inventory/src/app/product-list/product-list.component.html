@@ -11,11 +11,10 @@
     <mat-cell *matCellDef="let product" (click)="selectedRow(product)">{{ product[item.key] }}</mat-cell>
   </ng-container>
 
-
   <ng-container matColumnDef="View/Edit">
-    <mat-header-cell *matHeaderCellDef> View/Edit </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>Edit </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <button mat-button mat-raised-button class="btn btn-primary" class="btn btn-primary" (click)="editPopUp(row)">
+      <button mat-button mat-raised-button class="btn btn-nisum" class="btn btn-nisum" (click)="editPopUp(row)">
         Edit
       </button>
     </mat-cell>

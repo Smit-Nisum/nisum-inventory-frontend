@@ -16,7 +16,7 @@ export class AuthGuardService implements CanActivate {
       authenticated: false,
     };
     console.log(localStorage.getItem('TOKEN'), 'user token');
-    if (localStorage.getItem('TOKEN') === 'null') {
+    if (localStorage.getItem('APP_TOKEN') === 'null') {
       this.router.navigate(['login-page']);
       return false;
     }

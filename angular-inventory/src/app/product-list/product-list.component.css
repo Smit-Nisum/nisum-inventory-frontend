@@ -1,3 +1,23 @@
 .wrapper{
     min-height:80vh;
 }
+      
+.mat-row:nth-child(even){
+    background-color: rgb(242, 242, 242);
+    transition: .5s;
+}
+
+.mat-row:nth-child(even):hover{
+    background-color: #c0bfc0;
+    transition: .5s;
+}
+
+.mat-row:nth-child(odd){
+    background-color: #fff;
+    transition: .5s;
+}
+
+.mat-row:nth-child(odd):hover{
+    background-color: #c0bfc0;
+    transition: .5s;
+}

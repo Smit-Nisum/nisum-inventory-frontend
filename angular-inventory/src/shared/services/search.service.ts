@@ -7,6 +7,18 @@ import { BehaviorSubject } from 'rxjs';
 export class SearchService {
   private filterText = new BehaviorSubject<string>('');
   filterText$ = this.filterText.asObservable();
+
+  private category = new BehaviorSubject<string>('');
+  category$ = this.category.asObservable();
+
+  getCategory(): string {
+    return this.category.getValue();
+  }
+
+  setCategory(value: string) {
+    this.category.next(value);
+  }
+
   constructor() {}
 
   getSearchText() {
@@ -27,3 +39,4 @@ export class SearchService {
   //   this.matDataTable.filter = filterValue;
   // }
 }
+
