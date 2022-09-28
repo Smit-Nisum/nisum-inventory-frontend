@@ -17,6 +17,7 @@ import { ProductService } from 'src/shared/services/product.service';
 export class EditProductBtnComponent implements OnInit {
   productForm?: FormGroup | any;
   products: any;
+  isSubmitted? = false;
 
   constructor(private ps: ProductService, private fb: FormBuilder) {}
 
@@ -24,13 +25,19 @@ export class EditProductBtnComponent implements OnInit {
     will update the product
   */
   editProduct() {
+    this.isSubmitted = true;
+
     console.log('Get Value UPC ' + this.ps.upcValue);
-    if (this.ps.upcValue) {
+    if (this.ps.upcValue && this.productForm.valid) {
       this.ps.updateProduct(this.productForm.value).subscribe((product) => {
         console.log(product);
         window.location.reload();
       });
     }
+  }
+
+  get fc() {
+    return this.productForm.controls;
   }
 
   ngOnInit(): void {
@@ -66,11 +73,55 @@ export class EditProductBtnComponent implements OnInit {
       brand: ['', [Validators.required]],
       prodDescription: ['', [Validators.required]],
       category: ['', [Validators.required]],
-      pricePerUnit: ['', [Validators.required]],
+      pricePerUnit: [
+        '',
+        [Validators.required, Validators.pattern('^[0-9]+(.[0-9][0-9])?$')],
+      ],
       imageURL: ['', [Validators.required]],
-      availableStock: ['', [Validators.required]],
-      reservedStock: ['', [Validators.required]],
-      shippedStock: ['', [Validators.required]],
+      availableStock: [
+        '',
+        [Validators.required, Validators.pattern('^[0-9]*$')],
+      ],
+      reservedStock: [
+        '',
+        [Validators.required, Validators.pattern('^[0-9]*$')],
+      ],
+      shippedStock: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
     });
+  }
+
+  get prodName() {
+    return this.productForm.get('prodName');
+  }
+
+  get brand() {
+    return this.productForm.get('brand');
+  }
+
+  get prodDescription() {
+    return this.productForm.get('prodDescription');
+  }
+
+  get category() {
+    return this.productForm.get('category');
+  }
+
+  get pricePerUnit() {
+    return this.productForm.get('pricePerUnit');
+  }
+
+  get imageURL() {
+    return this.productForm.get('imageURL');
+  }
+
+  get availableStock() {
+    return this.productForm.get('availableStock');
+  }
+
+  get reservedStock() {
+    return this.productForm.get('reservedStock');
+  }
+  get shippedStock() {
+    return this.productForm.get('shippedStock');
   }
 }
