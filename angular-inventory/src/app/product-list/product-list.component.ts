@@ -107,7 +107,7 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.cateSub = this.searchService.category$.subscribe((search: any) => {
       this.category = search;
-      console.log(this.category);
+
       this.applyFilter(this.filterText);
     });
   }
@@ -189,18 +189,25 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filterText = this.filterText.trim(); // Remove whitespace
     this.filterText = this.filterText.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = this.filterText;
-    if (this.category !== 'all') {
-      this.filterByDropDown(this.category);
-    }
+    this.filterByDropDown(this.category);
   }
 
   filterByDropDown(search: any) {
     this.dataSource.data = this.products.filter((p) => {
       const field = p[search as keyof Product];
 
-      if (typeof field === 'string') {
-        return field.toLowerCase().includes(this.filterText.toLowerCase());
-      } else if (field === 'all') {
+      if (this.category === 'all') {
+        let foundItem = false;
+        Object.entries(p).forEach((f) => {
+          console.log(f);
+          if (
+            f.toString().toLowerCase().includes(this.filterText.toLowerCase())
+          ) {
+            foundItem = true;
+          }
+        });
+        return foundItem;
+      } else if (typeof field === 'string') {
         return field.toLowerCase().includes(this.filterText.toLowerCase());
       } else if (typeof field === 'number') {
         return field.toString().includes(this.filterText);
