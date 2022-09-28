@@ -29,6 +29,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { EditProductBtnComponent } from './edit-product-btn/edit-product-btn.component';
 import { ProductNotFoundComponent } from './product-not-found/product-not-found.component';
+import { ProductDetailModalComponent } from './product-detail-modal/product-detail-modal.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -37,11 +39,11 @@ import { ProductNotFoundComponent } from './product-not-found/product-not-found.
     ProductListComponent,
     SearchBarComponent,
     CreateProductBtnComponent,
-
     ProductViewPageComponent,
     DeleteDialogComponent,
     EditProductBtnComponent,
     ProductNotFoundComponent,
+    ProductDetailModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,8 +58,8 @@ import { ProductNotFoundComponent } from './product-not-found/product-not-found.
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatPaginatorModule,
-
     MatDialogModule,
+    MatCardModule
 
   ],
   providers: [
@@ -78,4 +80,4 @@ import { ProductNotFoundComponent } from './product-not-found/product-not-found.
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
