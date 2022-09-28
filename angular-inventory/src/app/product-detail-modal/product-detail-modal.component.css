@@ -24,8 +24,8 @@ mat-dialog-container {
 }
 
 .img-wrapper {
-  max-width: 50%;
-  max-height: 40%;
+  max-width: 400px;
+  max-height: 400px;
   width: auto;
   height: auto;
   margin: auto;
@@ -34,8 +34,10 @@ mat-dialog-container {
 }
 
 .img-wrapper > img {
-  max-height:50%;
-  max-width:30%;
+  /* max-height:50%;
+  max-width:30%; */
+  max-height: 400px;
+  max-width: 70%;
   height:auto;
   width:auto;
 }
