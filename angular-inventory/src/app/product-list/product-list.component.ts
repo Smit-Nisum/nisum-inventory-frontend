@@ -229,6 +229,7 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     );
     console.log(row.upc);
   }
+  
   async signOut(): Promise<void> {
     try {
       await this._authService.signOut();

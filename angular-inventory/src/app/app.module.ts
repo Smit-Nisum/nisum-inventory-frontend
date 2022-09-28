@@ -29,6 +29,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { EditProductBtnComponent } from './edit-product-btn/edit-product-btn.component';
 import { ProductNotFoundComponent } from './product-not-found/product-not-found.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ProductNotFoundComponent } from './product-not-found/product-not-found.
     DeleteDialogComponent,
     EditProductBtnComponent,
     ProductNotFoundComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
