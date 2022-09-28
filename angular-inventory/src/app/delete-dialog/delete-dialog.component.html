@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Are you sure Delete?</h2>
+<mat-dialog-content>The product will be deleted</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close class="btn btn-nisum">No</button> &nbsp;
+  <button
+    class="btn btn-danger"
+    mat-button
+    mat-dialog-close
+    (click)="clickYes()"
+  >
+    Yes
+  </button>
+</mat-dialog-actions>

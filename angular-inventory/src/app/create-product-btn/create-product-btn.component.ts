@@ -58,22 +58,58 @@ export class CreateProductBtnComponent implements OnInit {
     prodDesc  : ['', Validators.required],
     category  : ['', Validators.required],
     pricePerUnit  : ['', [Validators.required, Validators.pattern("^[0-9]+(\.[0-9][0-9])?$")]],
-    imageURL  : '',
+    imageURL  : ['', Validators.required],
     availableStock  : ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
     reservedStock : ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
     shippedStock : ['', [Validators.required, Validators.pattern("^[0-9]*$")]]
   });
+
+  get upc(){
+    return this.addProductForm.get('upc');
+  }
+  
+  get prodName(){
+    return this.addProductForm.get('prodName');
+  }
+
+  get brand(){
+    return this.addProductForm.get('brand');
+  }
+
+  get prodDesc(){
+    return this.addProductForm.get('prodDesc');
+  }
+
+  get category(){
+    return this.addProductForm.get('category');
+  }
+
+  get pricePerUnit(){
+    return this.addProductForm.get('pricePerUnit');
+  }
+
+  get imageURL(){
+    return this.addProductForm.get('imageURL');
+  }
+
+  get availableStock(){
+    return this.addProductForm.get('availableStock');
+  }
+
+  get reservedStock(){
+    return this.addProductForm.get('reservedStock');
+  }
+  get shippedStock(){
+    return this.addProductForm.get('shippedStock');
+  }
 
   product = {};
 
   onSubmit(): void{
     if(!this.addProductForm.valid){
       console.log("Form is invalid");
-      
     }
     else {
-      
-
       if (window.confirm("Do you really want to create this product?")) {
         this.product = this.addProductForm.value;
         console.log(this.product);
@@ -97,18 +133,8 @@ export class CreateProductBtnComponent implements OnInit {
     console.log("product has been sent to backend");
     this.product = {};
     this.addProductForm.reset();
-    this.closePopup();
-
   }
 
-  displayStyle = "none";
-  
-  openPopup() {
-    this.displayStyle = "block";
-  }
-  closePopup() {
-    this.displayStyle = "none";
-  }
 
   
 
