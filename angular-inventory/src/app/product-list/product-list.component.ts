@@ -230,15 +230,7 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log(row.upc);
   }
   
-  async signOut(): Promise<void> {
-    try {
-      await this._authService.signOut();
-      localStorage.removeItem('APP_TOKEN');
-      this.router.navigate(['/login-page']);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  
 }
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {
