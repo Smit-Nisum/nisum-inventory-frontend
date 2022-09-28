@@ -38,3 +38,46 @@ mat-card {
   flex-direction: row;
   justify-content:space-between;
 }
+
+
+@media only screen and (max-height: 768px) {
+  .img-wrapper {
+    max-width: 200px;
+    max-height: 200px;
+    height:auto;
+    width:auto;
+  }
+
+  .img-wrapper > img {
+    max-height: 100%;
+    max-width: 100%;
+    height:auto;
+    width:auto;
+  }
+
+  mat-card-title {
+    font-size: 20px;
+  }
+
+  mat-card-subtitle {
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+
+  
+
+
+}
+
+
+@media only screen and (max-height: 576px) {
+  .img-wrapper {
+    max-width: 200px;
+    max-height: 200px;
+  }
+
+  .img-wrapper > img {
+    max-height: 150px;
+    max-width: 70%;
+  }
+}
