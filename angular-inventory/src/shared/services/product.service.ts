@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +33,7 @@ export class ProductService {
   }
 
   updateProduct(product: any) {
+    console.table(product);
     return this.http.put<any>(`${this.baseUrl}/update`, product);
   }
 
