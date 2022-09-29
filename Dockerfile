@@ -1,7 +1,7 @@
 FROM node as build-deps
 WORKDIR /usr/src/app
 COPY . ./
-RUN npm install
+RUN npm install --legacy-peer-deps --prefix angular-inventory ${cd}
 RUN npm run build
 
 FROM nginx:1.23.1-alpine
