@@ -1,6 +1,7 @@
 FROM node as build-deps
-WORKDIR /usr/src/app/angular-inventory
+WORKDIR /usr/src/app/
 COPY . ./
+WORKDIR /usr/src/app/angular-inventory
 COPY package.json  ./
 RUN npm install --legacy-peer-deps
 RUN npm run build
