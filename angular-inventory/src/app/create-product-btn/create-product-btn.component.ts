@@ -114,8 +114,7 @@ export class CreateProductBtnComponent implements OnInit {
         this.product = this.addProductForm.value;
         console.log(this.product);
         this.productCreation();
-        window.location.reload();
-
+        
       }
     }
     
@@ -124,7 +123,7 @@ export class CreateProductBtnComponent implements OnInit {
 
   productCreation(){
     this.ps.createProduct(this.product).subscribe({
-      next: () => this.onSaveComplete(),
+      next: () => {this.onSaveComplete(); window.location.reload()} ,
       error: err => this.errorMessage = err
     })
   }
