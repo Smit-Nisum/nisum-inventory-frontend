@@ -186,8 +186,8 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.matDialog.open(ProductDetailModalComponent, {
       width: '35%',
       height: 'calc(60%)',
-      data: { ...row }
-    })
+      data: { ...row },
+    });
     // this.dialog
   }
 
@@ -256,7 +256,7 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
       (product) => {
         console.log('print this' + product.prodName);
         this.matDialog.open(EditProductBtnComponent, {
-          height: '770px',
+          height: '640px',
           width: '500px',
         });
         this.ps.setUpc(row.upc);
@@ -272,9 +272,7 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     );
     console.log(row.upc);
-
   }
-
 }
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {

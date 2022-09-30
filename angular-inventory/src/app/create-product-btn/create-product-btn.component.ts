@@ -60,8 +60,8 @@ export class CreateProductBtnComponent implements OnInit {
     pricePerUnit  : ['', [Validators.required, Validators.pattern("^[0-9]+(\.[0-9][0-9])?$")]],
     imageURL  : ['', Validators.required],
     availableStock  : ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
-    reservedStock : ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
-    shippedStock : ['', [Validators.required, Validators.pattern("^[0-9]*$")]]
+    reservedStock : ['0', [Validators.required, Validators.pattern("^[0-9]*$")]],
+    shippedStock : ['0', [Validators.required, Validators.pattern("^[0-9]*$")]]
   });
 
   get upc(){
@@ -114,8 +114,7 @@ export class CreateProductBtnComponent implements OnInit {
         this.product = this.addProductForm.value;
         console.log(this.product);
         this.productCreation();
-        window.location.reload();
-
+        
       }
     }
     
@@ -124,7 +123,7 @@ export class CreateProductBtnComponent implements OnInit {
 
   productCreation(){
     this.ps.createProduct(this.product).subscribe({
-      next: () => this.onSaveComplete(),
+      next: () => {this.onSaveComplete(); window.location.reload()} ,
       error: err => this.errorMessage = err
     })
   }
