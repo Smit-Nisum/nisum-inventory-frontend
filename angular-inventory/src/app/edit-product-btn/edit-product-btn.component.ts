@@ -68,8 +68,8 @@ export class EditProductBtnComponent implements OnInit {
           pricePerUnit: product.pricePerUnit,
           imageURL: product.imageURL,
           availableStock: product.availableStock,
-          // reservedStock: product.reservedStock,
-          // shippedStock: product.shippedStock,
+          reservedStock: product.reservedStock,
+          shippedStock: product.shippedStock,
         });
       });
     }
@@ -89,11 +89,11 @@ export class EditProductBtnComponent implements OnInit {
         '',
         [Validators.required, Validators.pattern('^[0-9]*$')],
       ],
-      // reservedStock: [
-      //   '',
-      //   [Validators.required, Validators.pattern('^[0-9]*$')],
-      // ],
-      // shippedStock: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      reservedStock: [
+        '',
+        [Validators.required, Validators.pattern('^[0-9]*$')],
+      ],
+      shippedStock: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
     });
   }
 
