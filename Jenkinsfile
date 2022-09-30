@@ -1,9 +1,9 @@
 pipeline {
     agent { dockerfile true }
     stages {
-        stage('Clean Workspace') {
+        stage('Prune Image') {
             steps {
-                cleanWs()
+                sh 'docker image prune -f'
             }
         }
     }
