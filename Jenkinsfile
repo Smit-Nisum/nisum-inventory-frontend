@@ -1,13 +1,6 @@
 pipeline {
     agent { dockerfile true }
     stages {
-        stage('Prune Image') {
-            steps {
-                //sh 'npm version'
-                sh 'java -version'
-                //sh 'docker image prune -f'
-            }
-        }
         stage('Docker Build Image and Push') {
             steps {
                 //Using DockerHub as Container Image repo. Log in, build image, and then push it to DockerHub using credentials.
