@@ -9,6 +9,7 @@ pipeline {
                     docker login --username $USERNAME --password $PASSWORD
                     docker build -t $USERNAME/nisum-inventory-frontend-app:${env.BUILD_NUMBER} .
                     docker push $USERNAME/nisum-inventory-frontend-app:${env.BUILD_NUMBER}
+                    docker logout
                     """
                 }
                 echo '========== Continuous Integration ends here =========='
