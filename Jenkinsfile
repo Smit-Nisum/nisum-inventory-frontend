@@ -1,6 +1,6 @@
 pipeline {
-    agent { dockerfile true }
-    //agent {label 'built-in'}
+    //agent { dockerfile true }
+    agent {label 'built-in'}
     stages {
         stage('Docker Build Image and Push') {
             //agent {label 'built-in'}
