@@ -3,19 +3,19 @@
 <div class="product-details-container">
   <mat-card>
     <div class="header-details">
-      <div>
+      <div class="container">
         <mat-card-title> Name: {{data.prodName}} </mat-card-title>
         <mat-card-subtitle>Category: {{data.category}} </mat-card-subtitle>
         <mat-card-subtitle>Brand: {{data.brand}}</mat-card-subtitle>
       </div>
-      <div>
+      <div >
         <mat-card-subtitle>Available: {{data.availableStock}} </mat-card-subtitle>
         <mat-card-subtitle>Reserved: {{data.reservedStock}} </mat-card-subtitle>
         <mat-card-subtitle>Shipped: {{data.shippedStock}} </mat-card-subtitle>
       </div>
     </div>
     <mat-card-content>
-      <div class="img-wrapper">
+      <div class="img-wrapper container">
         <img src={{data.imageURL}} alt="">
       </div>
 
